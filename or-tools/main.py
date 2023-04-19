@@ -1,4 +1,7 @@
+from file_parser import parse_problem 
+ 
 def main():
+    parse_problem("../data/mdvrp/pr01")
     return
 
 
