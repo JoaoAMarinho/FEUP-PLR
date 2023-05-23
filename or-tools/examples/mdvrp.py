@@ -175,7 +175,7 @@ def main():
         4000,  # vehicle maximum travel distance
         True,  # start cumul to zero
         dimension_name)
-    #distance_dimension = routing.GetDimensionOrDie(dimension_name)
+    distance_dimension = routing.GetDimensionOrDie(dimension_name)
     #distance_dimension.SetGlobalSpanCostCoefficient(100)
     # [END distance_constraint]
 
@@ -185,6 +185,12 @@ def main():
     search_parameters.first_solution_strategy = (
         routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC)
     # [END parameters]
+
+    routing.CloseModelWithParameters(search_parameters)
+
+    collector = routing.solver().AllSolutionCollector()
+    collector.AddObjective(routing.CostVar())
+    routing.AddSearchMonitor(collector)
 
     # Solve the problem.
     # [START solve]
@@ -196,6 +202,11 @@ def main():
     if solution:
         print_solution(data, manager, routing, solution)
     # [END print_solution]
+
+    print(collector.SolutionCount())
+    for i in range(collector.SolutionCount()):
+        print(f"{collector.WallTime(i)}         {collector.Solution(i).ObjectiveValue()}")
+
 
 
 if __name__ == '__main__':

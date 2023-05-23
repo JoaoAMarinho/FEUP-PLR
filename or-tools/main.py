@@ -1,20 +1,25 @@
 from file_parser import parse_problem
+from solver import solve
+import sys
+import json
+
+DATA_PATH = "../data/"
+RESULT_PATH = "results/"
+PROBLEM_FOLDER = ["mdvrp/", "mdvrptw/", "vrptw/"]
+
  
-def main():
+def main(problem, file):
     #MDVRPTW
     mdvrptw = parse_problem("../data/mdvrptw/pr01")
-    print(mdvrptw.get_distance_matrix())
-    print("\n\n")
     #VRPTW
     vrptw = parse_problem("../data/vrptw/c101")
-    print(vrptw.get_distance_matrix())
-    print("\n\n")
     #MDVPR
-    mdvrp = parse_problem("../data/mdvrp/pr01")
-    print(mdvrp.get_distance_matrix())
-    print("\n\n")
-    return
+    mdvrp = parse_problem(DATA_PATH + PROBLEM_FOLDER[problem] + file)
+    result = solve(mdvrp)
+    with open(RESULT_PATH + PROBLEM_FOLDER[problem] + file, "w") as outfile:
+        json.dump(result, outfile, indent=2)
+    
 
 
 if __name__ == "__main__":
-    main()
+    main(int(sys.argv[1]), sys.argv[2])
