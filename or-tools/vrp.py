@@ -1,3 +1,5 @@
+import math
+
 class VRP : 
     def __init__(self):
         self.vehicles = []
@@ -13,3 +15,12 @@ class VRP :
 
     def add_client(self, client):
         self.clients.append(client)
+
+    def get_distance_matrix(self):
+        matrix = []
+        for loc1 in self.depots + self.clients:
+            line = []
+            for loc2 in self.depots + self.clients:
+                line.append(round(math.sqrt((loc1.x - loc2.x)**2 + (loc1.y - loc2.y)**2)))
+            matrix.append(line)
+        return matrix

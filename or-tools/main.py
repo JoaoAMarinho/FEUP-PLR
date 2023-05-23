@@ -1,12 +1,18 @@
-from file_parser import parse_problem 
+from file_parser import parse_problem
  
 def main():
     #MDVRPTW
-    parse_problem("../data/mdvrptw/pr01")
+    mdvrptw = parse_problem("../data/mdvrptw/pr01")
+    print(mdvrptw.get_distance_matrix())
+    print("\n\n")
     #VRPTW
-    parse_problem("../data/vrptw/c101")
+    vrptw = parse_problem("../data/vrptw/c101")
+    print(vrptw.get_distance_matrix())
+    print("\n\n")
     #MDVPR
-    parse_problem("../data/mdvrp/pr01")
+    mdvrp = parse_problem("../data/mdvrp/pr01")
+    print(mdvrp.get_distance_matrix())
+    print("\n\n")
     return
 
 
