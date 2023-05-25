@@ -12,6 +12,9 @@ class VRP :
     def add_depot_coords(self, depot_index, x, y):
         self.depots[depot_index].add_coords(x, y)
 
+    def add_time_window(self, depot_index, w_start, w_end):
+        self.depots[depot_index].add_time_window(w_start, w_end)
+
     def add_client(self, client):
         self.clients.append(client)
 
@@ -31,5 +34,10 @@ class VRP :
         data['num_vehicles'] = self.num_depots*self.num_vehicles
         data['starts'] = [i for i in range(self.num_depots)] * self.num_vehicles
         data['ends'] = data['starts']
+
+        if self.type != 2:
+            data["time_windows"] = [
+                (x.start, x.end) for x in self.depots + self.clients
+            ]
 
         return data

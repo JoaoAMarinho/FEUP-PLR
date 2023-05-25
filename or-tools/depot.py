@@ -6,3 +6,7 @@ class Depot:
     def add_coords(self,x,y):
         self.x = x
         self.y = y
+
+    def add_time_window(self, start, end):
+        self.start = start
+        self.end = end

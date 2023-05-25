@@ -7,7 +7,7 @@ def parse_problem(file):
 
     with open(file) as infile:
         first_line = infile.readline().split(' ')
-        type = int(first_line[0])
+        vrp.type = int(first_line[0])
         vrp.num_vehicles = int(first_line[1])
         vrp.num_clients = int(first_line[2])
         vrp.num_depots = int(first_line[3])
@@ -17,12 +17,14 @@ def parse_problem(file):
             depot = Depot(int(line[0]), int(line[1]))
             vrp.add_depot(depot)
         
-        if type == 4:
+        if vrp.type == 4:
             depot_line = infile.readline().split(' ')
             depot_line = list(filter(lambda e: e != '', depot_line))
             x = float(depot_line[1])
             y = float(depot_line[2])
-            #Here it has a time window but is it really necessary??
+            w_start = int(depot_line[-2])
+            w_end = int(depot_line[-1])
+            vrp.add_time_window(0, w_start, w_end)
             vrp.add_depot_coords(0, x, y)
 
         for _ in range(vrp.num_clients):
@@ -37,20 +39,23 @@ def parse_problem(file):
 
             client = Client(x,y,duration,demand)
             
-            if type != 2:
+            if vrp.type != 2:
                 w_start = int(client_line[-2])
                 w_end = int(client_line[-1])
                 client.add_time_window(w_start, w_end)
 
             vrp.add_client(client)
 
-        if type != 4:
+        if vrp.type != 4:
             for i in range(vrp.num_depots):
                 depot_line = infile.readline().split(' ')
                 depot_line = list(filter(lambda e: e != '', depot_line))
                 x = float(depot_line[1])
                 y = float(depot_line[2])
-                #Here it has a time window but is it really necessary??
+                if vrp.type != 2:
+                    w_start = int(depot_line[-2])
+                    w_end = int(depot_line[-1])
+                    vrp.add_time_window(i, w_start, w_end)
                 vrp.add_depot_coords(i, x, y)
 
 

@@ -23,6 +23,31 @@ def print_solution(data, manager, routing, solution):
         max_route_distance = max(route_distance, max_route_distance)
     print('Maximum of the route distances: {}m\nTotal route distance {}'.format(max_route_distance, total_route_distance))
 
+
+def print_solution_time(data, manager, routing, solution):
+    """Prints solution on console."""
+    print(f'Objective: {solution.ObjectiveValue()}')
+    time_dimension = routing.GetDimensionOrDie('Distance')
+    total_time = 0
+    for vehicle_id in range(data['num_vehicles']):
+        index = routing.Start(vehicle_id)
+        plan_output = 'Route for vehicle {}:\n'.format(vehicle_id)
+        while not routing.IsEnd(index):
+            time_var = time_dimension.CumulVar(index)
+            plan_output += '{0} Time({1},{2}) -> '.format(
+                manager.IndexToNode(index), solution.Min(time_var),
+                solution.Max(time_var))
+            index = solution.Value(routing.NextVar(index))
+        time_var = time_dimension.CumulVar(index)
+        plan_output += '{0} Time({1},{2})\n'.format(manager.IndexToNode(index),
+                                                    solution.Min(time_var),
+                                                    solution.Max(time_var))
+        plan_output += 'Time of the route: {}min\n'.format(
+            solution.Min(time_var))
+        print(plan_output)
+        total_time += solution.Min(time_var)
+    print('Total time of all routes: {}min'.format(total_time))
+
 def solve(vrp):
     """Simple Vehicles Routing Problem."""
     """Entry point of the program."""
@@ -36,8 +61,9 @@ def solve(vrp):
     manager = pywrapcp.RoutingIndexManager(len(data['distance_matrix']),
                                            data['num_vehicles'], data['starts'],
                                            data['ends'])
+    print(data['num_vehicles'], data['starts'], data['ends'])
+    print(data['max_route_length'])
     # [END index_manager]
-
     # Create Routing Model.
     routing = pywrapcp.RoutingModel(manager)
 
@@ -60,14 +86,38 @@ def solve(vrp):
 
     # Add Distance constraint.
     # [START distance_constraint]
+    max_length = data['max_route_length'] if data['max_route_length'] > 0 else 100000
     dimension_name = 'Distance'
     routing.AddDimension(
         transit_callback_index,
-        0,  # no slack
-        data['max_route_length'],  # This is what?
-        True,  # start cumul to zero
+        1235,  # no slack
+        max_length,  # This is what?
+        False,  # start cumul to zero
         dimension_name)
     # [END distance_constraint]
+
+    if vrp.type != 2:
+        time_dimension = routing.GetDimensionOrDie(dimension_name)
+    # Add time window constraints for each location except depot.
+    for location_idx, time_window in enumerate(data['time_windows']):
+        if location_idx in data['starts']:
+            continue
+        index = manager.NodeToIndex(location_idx)
+        time_dimension.CumulVar(index).SetRange(time_window[0], time_window[1])
+    # Add time window constraints for each vehicle start node.
+    for vehicle_id in range(data['num_vehicles']):
+        index = routing.Start(vehicle_id)
+        time_dimension.CumulVar(index).SetRange(
+            data['time_windows'][data['starts'][vehicle_id]][0],
+            data['time_windows'][data['starts'][vehicle_id]][1])
+
+    # Instantiate route start and end times to produce feasible times.
+    for i in range(data['num_vehicles']):
+        routing.AddVariableMinimizedByFinalizer(
+            time_dimension.CumulVar(routing.Start(i)))
+        routing.AddVariableMinimizedByFinalizer(
+            time_dimension.CumulVar(routing.End(i)))
+
 
     # Setting first solution heuristic.
     search_parameters = pywrapcp.DefaultRoutingSearchParameters()
@@ -85,7 +135,12 @@ def solve(vrp):
 
     # Print solution on console.
     if solution:
-        print_solution(data, manager, routing, solution)
+        if vrp.type == 2:
+            print_solution(data, manager, routing, solution)
+        else:
+            print_solution_time(data, manager, routing, solution)
+    else:
+        print("NO SOLUTION")
 
     result = {}
     result["time"] = []

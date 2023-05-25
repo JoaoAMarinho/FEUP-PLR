@@ -9,13 +9,8 @@ PROBLEM_FOLDER = ["mdvrp/", "mdvrptw/", "vrptw/"]
 
  
 def main(problem, file):
-    #MDVRPTW
-    mdvrptw = parse_problem("../data/mdvrptw/pr01")
-    #VRPTW
-    vrptw = parse_problem("../data/vrptw/c101")
-    #MDVPR
-    mdvrp = parse_problem(DATA_PATH + PROBLEM_FOLDER[problem] + file)
-    result = solve(mdvrp)
+    vrp = parse_problem(DATA_PATH + PROBLEM_FOLDER[problem] + file)
+    result = solve(vrp)
     with open(RESULT_PATH + PROBLEM_FOLDER[problem] + file, "w") as outfile:
         json.dump(result, outfile, indent=2)
     
