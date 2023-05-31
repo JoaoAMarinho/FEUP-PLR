@@ -27,11 +27,16 @@ class VRP :
             matrix.append(line)
         return matrix
     
+    def get_demands(self):
+        return [0] * self.num_depots + [x.demand for x in self.clients]
+    
     def create_data_model(self):
         data = {}
         data['max_route_length'] = self.depots[0].max_duration
         data["distance_matrix"] = self.get_distance_matrix()
         data['num_vehicles'] = self.num_depots*self.num_vehicles
+        data['demands'] = self.get_demands()
+        data['vehicle_capacities'] = [x.max_load for x in self.depots] * self.num_vehicles
         data['starts'] = [i for i in range(self.num_depots)] * self.num_vehicles
         data['ends'] = data['starts']
 
