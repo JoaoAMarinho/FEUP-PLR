@@ -12,6 +12,14 @@ get_service_times([], []).
 get_service_times([node(_, _, _, ST, _)|Rest], [ST|Service_Times]):-
   get_service_times(Rest, Service_Times).
 
+/*
+* Get time windows from a list of nodes:
+* get_time_windows(+AllNodes, -Time_Windows)
+*/
+get_time_windows([], []).
+get_time_windows([node(_, _, _, _, TW)|Rest], [TW|Time_Windows]):-
+  get_time_windows(Rest, Time_Windows).
+
 
 /*
 * Calculate distances matrix:
@@ -55,9 +63,10 @@ build_routes([Route|Rest], N_Routes):-
 */
 buid_materialized_matrixes([], _, _, _, [], [], []).
 buid_materialized_matrixes([Route|Rest], N_Depots, Service_Times, Distances, [MaterializedDepot|MaterializedDepots], [MaterializedCustomer|MaterializedCustomers], [Times|TotalTimes]):-
-  LeftDepot in 0..1,
   buid_materialized_matrixes_aux(Route, 1, N_Depots, Service_Times, Distances, LeftDepot, MaterializedDepot, MaterializedCustomer, Times),
   sum(MaterializedDepot, #=, LeftDepot),
+  sum(MaterializedCustomer, #=, VisitedCustomers),
+  VisitedCustomers #> 0 #<=> LeftDepot,
   buid_materialized_matrixes(Rest, N_Depots, Service_Times, Distances, MaterializedDepots, MaterializedCustomers, TotalTimes).
 
 /*
@@ -109,6 +118,7 @@ main(Routes, TotalTime):-
   parse_file(Problem_Type, N_Vehicles, N_Customers, N_Depots, Depots_Info, Depots, Customers),
   append(Depots, Customers, AllNodes),
   get_service_times(AllNodes, Service_Times),
+  get_time_windows(AllNodes, Time_Windows),
 
   calculate_distances_matrix(AllNodes, Distances),
   
@@ -125,6 +135,8 @@ main(Routes, TotalTime):-
   length(LeftVehicles, N_Depots), domain(LeftVehicles, 0, N_Vehicles),
   sum_constraint(TransposedMaterializedDepots, LeftVehicles),
   sum_constraint(TransposedMaterializedCustomers, 1),
+
+  %time_constraints(Problem_Type, Routes, Distances, Service_Times, Time_Windows, MaterializedRoutes, TotalTimes),
   
   append(Routes, FlatRoutes),
   append(TotalTimes, FlatTotalTimes),
