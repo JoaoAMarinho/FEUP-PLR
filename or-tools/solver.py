@@ -26,17 +26,18 @@ def print_solution(data, manager, routing, solution):
         max_route_distance = max(route_distance, max_route_distance)
     print('Maximum of the route distances: {}m\nTotal route distance {}'.format(max_route_distance, total_route_distance))
 
-
 def print_solution_time(data, manager, routing, solution):
     """Prints solution on console."""
     print(f'Objective: {solution.ObjectiveValue()}')
     time_dimension = routing.GetDimensionOrDie('Distance')
     total_time = 0
     for vehicle_id in range(data['num_vehicles']):
+        route_load = 0 
         index = routing.Start(vehicle_id)
         plan_output = 'Route for vehicle {}:\n'.format(vehicle_id)
         while not routing.IsEnd(index):
             time_var = time_dimension.CumulVar(index)
+            route_load += data['demands'][manager.IndexToNode(index)]
             plan_output += '{0} Time({1},{2}) -> '.format(
                 manager.IndexToNode(index), solution.Min(time_var),
                 solution.Max(time_var))
@@ -47,6 +48,7 @@ def print_solution_time(data, manager, routing, solution):
                                                     solution.Max(time_var))
         plan_output += 'Time of the route: {}min\n'.format(
             solution.Min(time_var))
+        plan_output += 'Load of the route: {}/{}\n'.format(route_load, data['vehicle_capacities'][vehicle_id])
         print(plan_output)
         total_time += solution.Min(time_var)
     print('Total time of all routes: {}min'.format(total_time))
@@ -72,12 +74,14 @@ def solve(vrp):
 
     # Create and register a transit callback.
     # [START transit_callback]
+
     def distance_callback(from_index, to_index):
         """Returns the distance between the two nodes."""
         # Convert from routing variable Index to distance matrix NodeIndex.
         from_node = manager.IndexToNode(from_index)
         to_node = manager.IndexToNode(to_index)
-        return data['distance_matrix'][from_node][to_node]
+
+        return data['distance_matrix'][from_node][to_node]//2 + data["service_time"][from_node]
 
     transit_callback_index = routing.RegisterTransitCallback(distance_callback)
     # [END transit_callback]
@@ -89,12 +93,12 @@ def solve(vrp):
 
     # Add Distance constraint.
     # [START distance_constraint]
-    max_length = data['max_route_length'] if data['max_route_length'] > 0 else 1500
+    max_length = data['max_route_length'] if vrp.type == 2 else data['time_windows'][0][1] #window close of depot
     dimension_name = 'Distance'
     routing.AddDimension(
         transit_callback_index,
-        1235,  # no slack
-        max_length,
+        max_length,  # allow slack time of max_length
+        max_length, 
         False,  # start cumul to zero
         dimension_name)
     # [END distance_constraint]
