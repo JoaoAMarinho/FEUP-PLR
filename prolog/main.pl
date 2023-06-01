@@ -12,6 +12,16 @@ get_service_times([], []).
 get_service_times([node(_, _, _, ST, _)|Rest], [ST|Service_Times]):-
   get_service_times(Rest, Service_Times).
 
+/*
+* Get time windows from a list of nodes:
+* get_time_windows(+Problem_Type, +AllNodes, -Open_Times, -Close_Times)
+*/
+get_time_windows(_,[], [], []).
+get_time_windows(mdvrp, [_|Rest], [0|Open_Times], [0|Close_Times]):-
+  get_time_windows(mdvrp, Rest, Open_Times, Close_Times).
+get_time_windows(Problem_Type, [node(_, _, _, _, Open-Close)|Rest], [Open|Open_Times], [Close|Close_Times]):-
+  get_time_windows(Problem_Type, Rest, Open_Times, Close_Times).
+
 
 /*
 * Calculate distances matrix:
@@ -51,42 +61,71 @@ build_routes([Route|Rest], N_Routes):-
 
 /*
 * Build materialized matrixes from routes:
-* buid_materialized_matrixes(+Routes, +N_Depots, +Service_Times, +Distances, -MaterializedDepots, -MaterializedCustomers, -TotalTimes)
+* buid_materialized_matrixes(+Routes, +N_Depots, -MaterializedDepots, -MaterializedCustomers, -MaterializedRoutes)
 */
-buid_materialized_matrixes([], _, _, _, [], [], []).
-buid_materialized_matrixes([Route|Rest], N_Depots, Service_Times, Distances, [MaterializedDepot|MaterializedDepots], [MaterializedCustomer|MaterializedCustomers], [Times|TotalTimes]):-
-  buid_materialized_matrixes_aux(Route, 1, N_Depots, Service_Times, Distances, MaterializedDepot, MaterializedCustomer, Times),
-  sum(MaterializedDepot, #=, 1),
-  buid_materialized_matrixes(Rest, N_Depots, Service_Times, Distances, MaterializedDepots, MaterializedCustomers, TotalTimes).
+buid_materialized_matrixes([], _, [], [], []).
+buid_materialized_matrixes([Route|Rest], N_Depots, [MaterializedDepot|MaterializedDepots], [MaterializedCustomer|MaterializedCustomers], [MaterializedRoute|MaterializedRoutes]):-
+  buid_materialized_matrixes_aux(Route, 1, N_Depots, LeftDepot, MaterializedDepot, MaterializedCustomer, MaterializedRoute),
+  sum(MaterializedDepot, #=, LeftDepot),
+  sum(MaterializedCustomer, #=, VisitedCustomers),
+  VisitedCustomers #> 0 #<=> LeftDepot,
+  buid_materialized_matrixes(Rest, N_Depots, MaterializedDepots, MaterializedCustomers, MaterializedRoutes).
 
 /*
 * Build materialized matrix row from route:
-* buid_materialized_matrixes_aux(+Route, +Index, +N_Depots, +Service_Times, +Distances, -MaterializedDepot, -MaterializedCustomer, -TotalTimes)
+* buid_materialized_matrixes_aux(+Route, +Index, +N_Depots, +LeftDepot, -MaterializedDepot, -MaterializedCustomer, -MaterializedRoute)
 */
-buid_materialized_matrixes_aux([], _, 0, _, _, [], [], []).
-buid_materialized_matrixes_aux([Customer|Rest], Index, 0, Service_Times, Distances, [], [MaterializedCustomer|MaterializedCustomers], [Time|TotalTimes]):-
+buid_materialized_matrixes_aux([], _, 0, _, [], [], []).
+buid_materialized_matrixes_aux([Customer|Rest], Index, 0, LeftDepot, [], [MaterializedRoute|MaterializedCustomers], [MaterializedRoute|MaterializedRoutes]):-
   Customer #\= Index #<=> MaterializedCustomer,
-  get_total_time(Index, Customer, Distances, Service_Times, MaterializedCustomer, Time),
+  MaterializedRoute #= MaterializedCustomer * LeftDepot,
   New_Index is Index + 1,
-  buid_materialized_matrixes_aux(Rest, New_Index, 0, Service_Times, Distances, [], MaterializedCustomers, TotalTimes).
+  buid_materialized_matrixes_aux(Rest, New_Index, 0, LeftDepot, [], MaterializedCustomers, MaterializedRoutes).
 
-buid_materialized_matrixes_aux([Depot|Rest], Index, N_Depots, Service_Times, Distances, [MaterializedDepot|MaterializedDepots], MaterializedCustomers, [Time|TotalTimes]):-
+buid_materialized_matrixes_aux([Depot|Rest], Index, N_Depots, LeftDepot, [MaterializedRoute|MaterializedDepots], MaterializedCustomers, [MaterializedRoute|MaterializedRoutes]):-
   Depot #\= Index #<=> MaterializedDepot,
-  get_total_time(Index, Depot, Distances, Service_Times, MaterializedDepot, Time),
+  MaterializedRoute #= MaterializedDepot * LeftDepot,
   New_Depots is N_Depots - 1,
   New_Index is Index + 1,
-  buid_materialized_matrixes_aux(Rest, New_Index, New_Depots, Service_Times, Distances, MaterializedDepots, MaterializedCustomers, TotalTimes).
+  buid_materialized_matrixes_aux(Rest, New_Index, New_Depots, LeftDepot, MaterializedDepots, MaterializedCustomers, MaterializedRoutes).
 
 
 /*
-* Get total time between two nodes:
-* get_total_time(+Index1, +Index2, +Distances, +Service_Times, +Multiplier, -TotalTime)
+* Apply time constraints and get total times:
+* time_constraints(+Problem_Type, +Routes, +MaterializedRoutes, +Distances, +Service_Times, +Open_Times, +Close_Times, -TotalTimes)
 */
-get_total_time(Index1, Index2, Distances, Service_Times, Multiplier, TotalTime):-
-  nth1(Index1, Distances, DistancesLine),
-  element(Index2, DistancesLine, Distance),
-  element(Index2, Service_Times, ST),
-  TotalTime #= (Distance + ST) * Multiplier.
+time_constraints(_, [], [], _, _, _, _, []).
+time_constraints(Problem_Type, [Route|Routes], [MaterializedRoute|MaterializedRoutes], Distances, Service_Times, Open_Times, Close_Times, [Time|TotalTimes]):-
+  time_constraints_aux(Problem_Type, Route, MaterializedRoute, 1, Distances, Service_Times, Open_Times, Close_Times, 0, Time),
+  time_constraints(Problem_Type, Routes, MaterializedRoutes, Distances, Service_Times, Open_Times, Close_Times, TotalTimes).
+
+/*
+* Apply time constraints for a single route and get total time:
+* time_constraints_aux(+Problem_Type, +Route, +MaterializedRoute, Index, +Distances, +Service_Times, +Open_Times, +Close_Times, +Acc, -TotalTime)
+*/
+time_constraints_aux(_, [], [], _, _, _, _, _, Acc, Acc).
+time_constraints_aux(Problem_Type, [Node|Route], [MaterializedNode|MaterializedRoute], Index, Distances, Service_Times, Open_Times, Close_Times, Acc, TotalTime):-
+  New_Index is Index + 1,  
+  element(Node, Service_Times, ST),
+  element(Node, Open_Times, Open),
+  element(Node, Close_Times, Close),
+  nth1(Index, Distances, DistancesLine),
+  element(Node, DistancesLine, Distance),
+
+  can_go_to_next_node(Problem_Type, Acc, Distance, Open, Close, WaitTime, CanGoToNextNode),
+
+  Multiplier #= CanGoToNextNode * MaterializedNode,
+  Time #= Acc + (Distance + ST + WaitTime) * Multiplier,
+  time_constraints_aux(Problem_Type, Route, MaterializedRoute, New_Index, Distances, Service_Times, Open_Times, Close_Times, Time, TotalTime).
+
+/*
+* can_go_to_next_node(+Problem_Type, +Acc, +Distance, +Open, +Close, -WaitTime, -CanGoToNextNode)
+*/
+can_go_to_next_node(mdvrp, _, _, _, _, 0, 1):- !.
+can_go_to_next_node(_, Acc, Distance, Open, Close, WaitTime, CanGoToNextNode):-
+  WaitTime #>= 0,
+  Acc + Distance #=< Close #<=> CanGoToNextNode,
+  Acc + Distance + WaitTime #>= Open #<=> CanGoToNextNode.
 
 
 /*
@@ -94,6 +133,9 @@ get_total_time(Index1, Index2, Distances, Service_Times, Multiplier, TotalTime):
 * sum_constraint(+List, +N)
 */
 sum_constraint([], _).
+sum_constraint([List|Rest], [V|T]):-
+  sum(List, #=, V),
+  sum_constraint(Rest, T).
 sum_constraint([List|Rest], N):-
   sum(List, #=, N),
   sum_constraint(Rest, N).
@@ -103,6 +145,7 @@ main(Routes, TotalTime):-
   parse_file(Problem_Type, N_Vehicles, N_Customers, N_Depots, Depots_Info, Depots, Customers),
   append(Depots, Customers, AllNodes),
   get_service_times(AllNodes, Service_Times),
+  get_time_windows(Problem_Type, AllNodes, Open_Times, Close_Times),
 
   calculate_distances_matrix(AllNodes, Distances),
   
@@ -111,22 +154,25 @@ main(Routes, TotalTime):-
 
   length(Routes, TotalVehicles),
   build_routes(Routes, N_Routes),
-  buid_materialized_matrixes(Routes, N_Depots, Service_Times, Distances, MaterializedDepots, MaterializedCustomers, TotalTimes),
+  buid_materialized_matrixes(Routes, N_Depots, MaterializedDepots, MaterializedCustomers, MaterializedRoutes),
 
   transpose(MaterializedDepots, TransposedMaterializedDepots),
   transpose(MaterializedCustomers, TransposedMaterializedCustomers),
 
-  sum_constraint(TransposedMaterializedDepots, N_Vehicles),
+  length(LeftVehicles, N_Depots), domain(LeftVehicles, 0, N_Vehicles),
+  sum_constraint(TransposedMaterializedDepots, LeftVehicles),
   sum_constraint(TransposedMaterializedCustomers, 1),
-  
-  append(Routes, FlatRoutes),
-  append(TotalTimes, FlatTotalTimes),
 
-  sum(FlatTotalTimes, #=, TotalTime),
-  labeling([minimize(TotalTime)], FlatRoutes),
-  write(Routes), nl,
-  write(TotalTime), nl,
-  write(Distances).
+  time_constraints(Problem_Type, Routes, MaterializedRoutes, Distances, Service_Times, Open_Times, Close_Times, TotalTimes),
+
+  append(Routes, FlatRoutes),
+  sum(TotalTimes, #=, TotalTime),
+
+  labeling([minimize(TotalTime)], FlatRoutes).
+
+  %write(Routes), nl,
+  %write(TotalTime), nl,
+  %write(Distances).
 
 vehicle_routes([], []).
 vehicle_routes([Route|Rest], [Vehicle_Route|Vehicles]):-
