@@ -17,7 +17,7 @@ parse_file(Problem_Type, N_Vehicles, N_Customers, N_Depots, Depots_Info, Depots,
 	%write('Enter the file path: '),
 	%read(Filepath),
 	%see(Filepath),
-	see('../data/vrptw/c000'),
+	see('../data/mdvrptw/pr000'),
 	parse_first_line(Problem_ID, N_Vehicles, N_Customers, N_Depots),
 	problem_type(Problem_ID, Problem_Type),
 	parse_depots_info(N_Depots, Depots_Info),
@@ -61,8 +61,8 @@ parse_depots_info(N, [Depot|Depots]):-
 parse_nodes(-1, vrptw, _).  % vrptw has a depot before customers
 parse_nodes(0, _, []).
 parse_nodes(N, Problem_Type, [Node|Nodes]):-
-	read_line_info(Problem_Type, ID, X, Y, Service_Time, _Demand, _Frequency, _Visit_Combinations, Time_Window),
-	Node = node(ID, X, Y, Service_Time, Time_Window),
+	read_line_info(Problem_Type, ID, X, Y, Service_Time, Demand, _Frequency, _Visit_Combinations, Time_Window),
+	Node = node(ID, X, Y, Service_Time, Demand, Time_Window),
 	N1 is N - 1,
 	parse_nodes(N1, Problem_Type, Nodes).
 
@@ -71,8 +71,8 @@ parse_nodes(N, Problem_Type, [Node|Nodes]):-
 * parse_single_depot(+Problem_Type, +N_Depots, +New_N_Depots, -Depot)
 */
 parse_single_depot(vrptw, _, -1, [Depot]):-
-	read_line_info(vrptw, ID, X, Y, Service_Time, _Demand, _Frequency, _Visit_Combinations, Time_Window), !,
-	Depot = node(ID, X, Y, Service_Time, Time_Window).
+	read_line_info(vrptw, ID, X, Y, Service_Time, Demand, _Frequency, _Visit_Combinations, Time_Window), !,
+	Depot = node(ID, X, Y, Service_Time, Demand, Time_Window).
 parse_single_depot(_, N_Depots, N_Depots, _).
 
 
