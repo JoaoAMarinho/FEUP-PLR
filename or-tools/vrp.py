@@ -39,6 +39,7 @@ class VRP :
         data['vehicle_capacities'] = [x.max_load for x in self.depots] * self.num_vehicles
         data['starts'] = [i for i in range(self.num_depots)] * self.num_vehicles
         data['ends'] = data['starts']
+        data['service_time'] = self.num_depots*[0] + [int(x.duration) for x in self.clients]
 
         if self.type != 2:
             data["time_windows"] = [
