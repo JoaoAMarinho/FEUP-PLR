@@ -114,6 +114,7 @@ get_start_time(mdvrptw, 0):-
 * time_constraints_aux(+Problem_Type, +Route, +Materialized_Route, Index, +Distances, +Service_Times, +Open_Times, +Close_Times, +Acc_Time, -Wait_Times, -Total_Time)
 */
 time_constraints_aux(_, [], [], _, _, _, _, _, Acc_Time, [], Acc_Time).
+
 time_constraints_aux(Problem_Type, [Route|Routes], [Materialized_Route|Materialized_Routes], Index, Distances, Service_Times, Open_Times, Close_Times, Acc_Time, [Wait_Time|Wait_Times], Total_Time):-
   New_Index is Index + 1,  
   element(Route, Service_Times, Service_Time),
@@ -150,41 +151,163 @@ sum_constraint([List|Rest], N):-
   sum(List, #=, N),
   sum_constraint(Rest, N).
 
+%%%THis is for mdvrp but is easy 
+calc_time(_, [], _,Time, Time).
+calc_time(mdvrp, [Route|RoutesT], DistanceMatrix, Accum, Time) :-
+  calc_time_route(1, Route, DistanceMatrix, 0, TimeRoute),
+  calc_time(mdvrp, RoutesT, DistanceMatrix, NewAccum, Time).
+
+calc_time_route(_, [], _, Ret, Ret).
+calc_time_route(Index, [Node|Route], DistanceMatrix, Accum, Ret) :-
+  nth1(Index, DistanceMatrix, Distances_Line),
+  element(Node, Distances_Line, Distance),
+  NewAccum #= Accum + Distance,
+  Index1 is Index + 1,
+  calc_time_route(Index1, Route, DistanceMatrix, NewAccum, Ret).
+
+%Not sure if the previous constraints worked -> these ones do if you want to replace
+depot_constraints(_,_, _, N,N).
+depot_constraints(Routes, MatRoutes, N_Vehicles, N_Depots, Depot) :-
+  Depot1 is Depot + 1,
+  depot_constraints_aux(Routes, MatRoutes,  0, N_Vehicles, N_Depots, Depot1, RoutesOfDepot),
+  lex_chain(RoutesOfDepot),
+  depot_constraints(Routes, MatRoutes, N_Vehicles, N_Depots, Depot1).
+
+depot_constraints_aux(_,_, N_Vehicles, N_Vehicles, _, _ , []).
+depot_constraints_aux(Routes, MatRoutes, VehicleIt, N_Vehicles, N_Depots, Depot, [Route | RoutesOfDepot]) :-
+  VehicleIt1 is VehicleIt + 1,
+  Iterator is VehicleIt1 * Depot,
+  nth1(Iterator, Routes, Route),
+  nth1(Iterator, MatRoutes, MatRoute),
+  depot_constraints_apply(Route,MatRoute, N_Depots, Depot),
+  depot_constraints_aux(Routes, MatRoutes, VehicleIt1, N_Vehicles, N_Depots, Depot, RoutesOfDepot).
+
+
+
+depot_constraints_apply(_,_, 0, _).
+
+depot_constraints_apply(Route,MatRoute, Depot, Depot) :- !,
+  element(Depot, Route, FN),
+  sum(MatRoute, #=, TV),
+  FN #\= Depot #\/ TV #= 0,
+  DepotIt1 is Depot - 1,
+  depot_constraints_apply(Route, MatRoute, DepotIt1, Depot).
+
+depot_constraints_apply(Route, MatRoute, DepotIt, Depot) :-
+  element(DepotIt, Route, DV),
+  DV #= DepotIt,
+  DepotIt1 is DepotIt - 1,
+  depot_constraints_apply(Route, MatRoute, DepotIt1, Depot).
+
+client_constraints(_, N, N).
+
+client_constraints(MatRoutes, N_Depots, Client) :-
+  nth1(Client, MatRoutes, ClientRoute),
+  sum(ClientRoute, #=, 1),
+  Client1 is Client - 1,
+  client_constraints(MatRoutes, N_Depots, Client1).
+
+%Just re-did it because it was easier to do it than understande the previous hahahaha
+build_mat_routes([], []).
+build_mat_routes([Route |RouteT], [MatRoute | MatRouteT]) :-
+  build_mat_line(Route,1, MatRoute),
+  build_mat_routes(RouteT, MatRouteT).
+
+build_mat_line([],_, []).
+build_mat_line([N|Route], It, [B|MatT]) :-
+  N #\= It #<=> B,
+  It1 is It + 1,
+  build_mat_line(Route, It1, MatT).
+
+%NECESSARY FOR TW
+%Create matrix that tells when it leaves.
+create_end_times([],N_Routes, Max, N_Depots).
+create_end_times([E|ET],N_Routes, Max, N_Depots) :-
+  length(E, N_Routes),
+  domain(E, 0, Max),
+  depots_end(E, N_Depots),
+  create_end_times(ET,N_Routes, Max, N_Depots).
+
+%Make sure that depots leave at the begining??? maybe it is easier this way no??? not much of a change get rid of the max duration and just do it for the mdvrp
+depots_end(_, 0).
+depots_end(E, N_Depots) :-
+  element(N_Depots, E, 0),
+  Depots1 is N_Depots - 1,
+  depots_end(E, Depots1).
+
+%OUT FOR -> Calculates the Endtimes, the time of a route is then just the maximum end time plus the distance to the depot. must be careful with routes that do not leave plus how do i retrieve the index of the maximum???
+%Maybe maximum not necessary iterate and if it points to depot then add distance
+%I can actually calculate it Inside these functions on that part of the or where it finds the return actually nice lol
+calc_time_tw([], [], _, _, _, _, _,_).
+
+calc_time_tw([R|RT], [MR|MRT], Distances, Service_Times, Open_Times, Close_Times,N_Depots, [ET|ETT]) :-
+  calc_time_tw_route(R,MR, Distances, Service_Times, Open_Times, Close_Times,N_Depots, 1, ET),
+  calc_time_tw(RT, MRT, Distances, Service_Times, Open_Times, Close_Times, N_Depots, ETT).
+
+%INNER FOR
+calc_time_tw_route([], [], _, _, _, _, _,_, _).
+calc_time_tw_route([N|NT], [MN|MNT], Dist, ServTime, OpTime, ClTime, N_Depots, Index, ET) :-
+  nth1(Index, ET, NodeEndTime),
+  nth1(Index, Dist, DistLine),
+  element(N, DistLine, Distance),
+  element(N, ClTime, NodeCloseTime),
+  element(N, OpTime, NodeOpenTime),
+  element(N, ET, NextNodeTime),
+  element(N, ServTime, Service_Time),
+  ToArrive #= NodeEndTime + Distance,
+  maximum(NextNodeStartWork, [ToArrive, NodeOpenTime]),
+  (MN #= 0 #/\ NodeEndTime #= 0) #\/ %not part of the route   if n is node do not do this again
+  (                                 
+    NodeCloseTime #>= ToArrive #/\ % must arive before close
+    NextNodeTime #= NextNodeStartWork + Service_Time %compute leave time of nextnode
+
+  ) #\/ (N #=< N_Depots), %here we can calculate time T #= NodeEndTime + Distance
+  Index1 is Index + 1,
+  calc_time_tw_route(NT, MNT, Dist, ServTime, OpTime, ClTime,N_Depots, Index1, ET).
 
 main(Routes, Total_Time):-
   parse_file(Problem_Type, N_Vehicles, N_Customers, N_Depots, Depots_Info, Depots, Customers),
   append(Depots, Customers, All_Nodes),
   get_service_times(All_Nodes, Service_Times),
   get_time_windows(Problem_Type, All_Nodes, Open_Times, Close_Times),
-
+  
   calculate_distances_matrix(All_Nodes, Distances),
   
   length(All_Nodes, N_Routes),
   N_Total_Vehicles is N_Vehicles * N_Depots,
-
   length(Routes, N_Total_Vehicles),
   build_routes(Routes, N_Routes),
-  lex_chain(Routes),
-  buid_materialized_matrixes(Routes, N_Depots, Materialized_Depots, Materialized_Customers, Materialized_Routes),
 
-  transpose(Materialized_Depots, Transp_Materialized_Depots),
-  transpose(Materialized_Customers, Transp_Materialized_Customers),
+  %buid_materialized_matrixes(Routes, N_Depots, Materialized_Depots, Materialized_Customers, Materialized_Routes),
+  build_mat_routes(Routes, Materialized_Routes),
+  depot_constraints(Routes, Materialized_Routes, N_Vehicles, N_Depots, 0),
 
-  length(Left_Vehicles, N_Depots), domain(Left_Vehicles, 0, N_Vehicles),
-  sum_constraint(Transp_Materialized_Depots, Left_Vehicles),
-  sum_constraint(Transp_Materialized_Customers, 1),
+  transpose(Materialized_Routes, Materialized_Routes_T),
+  client_constraints(Materialized_Routes_T, N_Depots, N_Routes),
+  %length(Left_Vehicles, N_Depots), domain(Left_Vehicles, 0, N_Vehicles),
+  %sum_constraint(Transp_Materialized_Depots, Left_Vehicles),
+  %sum_constraint(Transp_Materialized_Customers, 1),
+  %This is okay now not sure if it was before
 
-  time_constraints(Problem_Type, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, Start_Times, Wait_Times, Total_Times),
-  sum(Total_Times, #=, Total_Time),
+  %calc_time(Problem_Type, Routes,Distances, 0, Total_Time),
+  %Create end times for list 
+  length(End_Times, N_Total_Vehicles),
+  %create_end_times(End_Times, MaxTime) <- what should be right now it is hardcoded
+  create_end_times(End_Times,N_Routes, 1500, N_Depots),
+  write(End_Times), nl,
+  calc_time_tw(Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, N_Depots, End_Times),
+
+  %time_constraints(Problem_Type, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, Start_Times, Wait_Times, Total_Times),
+  %sum(Total_Times, #=, Total_Time),
 
   append(Routes, Flat_Routes),
-  append(Wait_Times, Flat_Wait_Times),
-  append(Flat_Routes, Flat_Wait_Times, Vars),
-
-  labeling([minimize(Total_Time), time_out(30000, Flag)], Vars),
-  write(Distances), nl,
-  write(Flag), nl,
-  calculate_time(Routes, Distances, Service_Times, Wait_Times, Time), write(Time).
+  append(End_Times, EndFlat),
+  %append(Wait_Times, Flat_Wait_Times),
+  append(Flat_Routes, EndFlat, Vars),
+  !,
+  labeling([], Vars),
+  write(End_Times), nl.
+  %calculate_time(Routes, Distances, Service_Times, Wait_Times, Time), write(Time).
 
 calculate_time([], _, _, [], 0).
 calculate_time([Route|Routes], Distances, Service_Times, [Wait_Time|Wait_Times], Time):-
