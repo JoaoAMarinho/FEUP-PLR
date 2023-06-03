@@ -110,13 +110,13 @@ def solve(vrp):
         from_node = manager.IndexToNode(from_index)
         return data['demands'][from_node]
 
-    # demand_callback_index = routing.RegisterUnaryTransitCallback(demand_callback)
-    # routing.AddDimensionWithVehicleCapacity(
-    #     demand_callback_index,
-    #     0,  # null capacity slack
-    #     data['vehicle_capacities'],  # vehicle maximum capacities
-    #     True,  # start cumul to zero
-    #     'Capacity')
+    demand_callback_index = routing.RegisterUnaryTransitCallback(demand_callback)
+    routing.AddDimensionWithVehicleCapacity(
+        demand_callback_index,
+        0,  # null capacity slack
+        data['vehicle_capacities'],  # vehicle maximum capacities
+        True,  # start cumul to zero
+        'Capacity')
 
     if vrp.type != 2:
         time_dimension = routing.GetDimensionOrDie(dimension_name)
