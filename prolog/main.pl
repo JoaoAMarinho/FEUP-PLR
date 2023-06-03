@@ -238,15 +238,17 @@ depots_end(E, N_Depots) :-
 %OUT FOR -> Calculates the Endtimes, the time of a route is then just the maximum end time plus the distance to the depot. must be careful with routes that do not leave plus how do i retrieve the index of the maximum???
 %Maybe maximum not necessary iterate and if it points to depot then add distance
 %I can actually calculate it Inside these functions on that part of the or where it finds the return actually nice lol
-calc_time_tw([], [], _, _, _, _, _,_).
+calc_time_tw([], [], _, _, _, _, _,_,[]).
 
-calc_time_tw([R|RT], [MR|MRT], Distances, Service_Times, Open_Times, Close_Times,N_Depots, [ET|ETT]) :-
-  calc_time_tw_route(R,MR, Distances, Service_Times, Open_Times, Close_Times,N_Depots, 1, ET),
-  calc_time_tw(RT, MRT, Distances, Service_Times, Open_Times, Close_Times, N_Depots, ETT).
+calc_time_tw([R|RT], [MR|MRT], Distances, Service_Times, Open_Times, Close_Times,N_Depots, [ET|ETT], [TimeRoute|TimeTail]) :-
+  calc_time_tw_route(R,MR, Distances, Service_Times, Open_Times, Close_Times,N_Depots, 1, ET, TimeRoute),
+  sum(MR, #=,  MRSum),
+  (MRSum #= 0 #/\ TimeRoute #= 0) #\/ (MRSum #\= 0),
+  calc_time_tw(RT, MRT, Distances, Service_Times, Open_Times, Close_Times, N_Depots, ETT, TimeTail).
 
 %INNER FOR
-calc_time_tw_route([], [], _, _, _, _, _,_, _).
-calc_time_tw_route([N|NT], [MN|MNT], Dist, ServTime, OpTime, ClTime, N_Depots, Index, ET) :-
+calc_time_tw_route([], [], _, _, _, _, _,_, _, _).
+calc_time_tw_route([N|NT], [MN|MNT], Dist, ServTime, OpTime, ClTime, N_Depots, Index, ET, Time) :-
   nth1(Index, ET, NodeEndTime),
   nth1(Index, Dist, DistLine),
   element(N, DistLine, Distance),
@@ -256,14 +258,14 @@ calc_time_tw_route([N|NT], [MN|MNT], Dist, ServTime, OpTime, ClTime, N_Depots, I
   element(N, ServTime, Service_Time),
   ToArrive #= NodeEndTime + Distance,
   maximum(NextNodeStartWork, [ToArrive, NodeOpenTime]),
-  (MN #= 0 #/\ NodeEndTime #= 0) #\/ %not part of the route   if n is node do not do this again
+  (MN #= 0 #/\ NodeEndTime #= 0) #\/ %not part of the route 
   (                                 
     NodeCloseTime #>= ToArrive #/\ % must arive before close
-    NextNodeTime #= NextNodeStartWork + Service_Time %compute leave time of nextnode
+    NextNodeTime #= NextNodeStartWork + Service_Time  %compute leave time of nextnode
 
-  ) #\/ (N #=< N_Depots), %here we can calculate time T #= NodeEndTime + Distance
+  ) #\/ (N #=< N_Depots #/\ Time #= NodeEndTime + Distance), %here we can calculate time T #= NodeEndTime + Distance
   Index1 is Index + 1,
-  calc_time_tw_route(NT, MNT, Dist, ServTime, OpTime, ClTime,N_Depots, Index1, ET).
+  calc_time_tw_route(NT, MNT, Dist, ServTime, OpTime, ClTime,N_Depots, Index1, ET, Time).
 
 main(Routes, Total_Time):-
   parse_file(Problem_Type, N_Vehicles, N_Customers, N_Depots, Depots_Info, Depots, Customers),
@@ -284,6 +286,8 @@ main(Routes, Total_Time):-
 
   transpose(Materialized_Routes, Materialized_Routes_T),
   client_constraints(Materialized_Routes_T, N_Depots, N_Routes),
+
+  %All problems
   %length(Left_Vehicles, N_Depots), domain(Left_Vehicles, 0, N_Vehicles),
   %sum_constraint(Transp_Materialized_Depots, Left_Vehicles),
   %sum_constraint(Transp_Materialized_Customers, 1),
@@ -294,19 +298,20 @@ main(Routes, Total_Time):-
   length(End_Times, N_Total_Vehicles),
   %create_end_times(End_Times, MaxTime) <- what should be right now it is hardcoded
   create_end_times(End_Times,N_Routes, 1500, N_Depots),
-  write(End_Times), nl,
-  calc_time_tw(Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, N_Depots, End_Times),
+  calc_time_tw(Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, N_Depots, End_Times, Total_Times),
 
   %time_constraints(Problem_Type, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, Start_Times, Wait_Times, Total_Times),
-  %sum(Total_Times, #=, Total_Time),
+
+  sum(Total_Times, #=, Total_Time),
 
   append(Routes, Flat_Routes),
   append(End_Times, EndFlat),
-  %append(Wait_Times, Flat_Wait_Times),
   append(Flat_Routes, EndFlat, Vars),
+  %append(Vars1, Total_Times, Vars),
   !,
-  labeling([], Vars),
-  write(End_Times), nl.
+  labeling([minimize(Total_Time)], Vars),
+  write(End_Times), nl,
+  write(Total_Times), nl.
   %calculate_time(Routes, Distances, Service_Times, Wait_Times, Time), write(Time).
 
 calculate_time([], _, _, [], 0).
