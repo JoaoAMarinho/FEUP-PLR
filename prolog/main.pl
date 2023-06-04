@@ -65,8 +65,14 @@ build_leave_times_aux(Leave_Time, N_Depots):-
   build_leave_times_aux(Leave_Time, New_N_Depots).
 
 
-main(Routes, Total_Time):-
+/*
+* Solve vrp problem with given parameters, return routes, total time and flag:
+* solve_problem(+Variable_Ordering, +Value_Selection, +Value_Ordering, +Time_Limit, -Solution)
+*/
+solve_problem(Variable_Ordering, Value_Selection, Value_Ordering, Time_Limit, Solution):-
   parse_file(Problem_Type, N_Vehicles, N_Depots, Depots_Info, Depots, Customers),
+  statistics(total_runtime, _), % reset total_runtime
+  
   append(Depots, Customers, All_Nodes),
   get_service_times(All_Nodes, Service_Times),
   get_time_windows(Problem_Type, All_Nodes, Open_Times, Close_Times),
@@ -97,5 +103,5 @@ main(Routes, Total_Time):-
   append(Leave_Times, Flat_Leave_Times),
   append(Flat_Routes, Flat_Leave_Times, Vars), !,
 
-  labeling([minimize(Total_Time), time_out(30000, Flag)], Vars),
-  write(Flag), nl.
+  labeling([Variable_Ordering, Value_Selection, Value_Ordering, time_out(Time_Limit, Flag), minimize(Total_Time)], Vars),
+  Solution = [Routes, Total_Time, Flag].
