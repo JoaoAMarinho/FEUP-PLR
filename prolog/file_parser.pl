@@ -11,9 +11,9 @@ problem_type(6, Type):-  Type = mdvrptw.
 
 /*
 * Parses an input file:
-* parse_file(-Problem_Type, -N_Vehicles, -N_Customers, -N_Depots, -Depots_Info, -Depots, -Customers)
+* parse_file(-Problem_Type, -N_Vehicles, -N_Depots, -Depots_Info, -Depots, -Customers)
 */
-parse_file(Problem_Type, N_Vehicles, N_Customers, N_Depots, Depots_Info, Depots, Customers):-
+parse_file(Problem_Type, N_Vehicles, N_Depots, Depots_Info, Depots, Customers):-
 	%write('Enter the file path: '),
 	%read(Filepath),
 	%see(Filepath),
@@ -25,9 +25,6 @@ parse_file(Problem_Type, N_Vehicles, N_Customers, N_Depots, Depots_Info, Depots,
 	parse_nodes(N_Customers, Problem_Type, Customers),
 	parse_nodes(New_N_Depots, Problem_Type, Depots),                    % mdvrp and mdvrptw have depots after customers
 	seen.
-	%write(Problem_ID-Depots_Info-N_Customers-N_Depots), nl,
-	%write(Depots_Info), nl,
-	%write(Depots), nl.
 
 
 /*
