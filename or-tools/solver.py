@@ -60,7 +60,7 @@ def print_solution_time(data, manager, routing, solution):
         total_distance += route_distance
 
     print('Total time of all routes: {}min'.format(total_time))
-    print('Total distance of all routes: {}min'.format(total_distance))
+    print('Total distance of all routes: {}m'.format(total_distance))
 
 def solve(vrp):
     """Simple Vehicles Routing Problem."""
