@@ -98,8 +98,12 @@ solve_problem(File, Variable_Ordering, Value_Selection, Value_Ordering, Time_Lim
   length(Leave_Times, N_Total_Vehicles),
   build_leave_times(N_Depots, N_Routes, Max_Route_Time, Leave_Times),
 
-  time_constraints(Problem_Type, N_Depots, Max_Route_Time, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, Leave_Times, Total_Times),
-  sum(Total_Times, #=, Total_Time),
+  time_window_constraints(Problem_Type, N_Depots, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, Leave_Times),
+  total_time_constraints(Routes, Materialized_Routes, Max_Route_Time, Distances, Service_Times, Total_Times),
+
+  sum(Service_Times, #=, Total_Service_Time),
+  sum(Total_Times, #=, Total_Route_Time),
+  Total_Time #= Total_Route_Time - Total_Service_Time,
 
   append(Routes, Flat_Routes),
   append(Leave_Times, Flat_Leave_Times),

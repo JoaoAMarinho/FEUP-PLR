@@ -1,6 +1,6 @@
 :-use_module(library(file_systems)).
 
-:- [main].
+:- [solver].
 
 
 /*

@@ -69,39 +69,21 @@ demand_constraints([Materialized_Route|Materialized_Routes], Demands, Max_Demand
 
 
 /*
-* Apply time constraints and get total times:
-* time_constraints(+Problem_Type, +N_Depots, +Max_Route_Time, +Routes, +Materialized_Routes, +Distances, +Service_Times, +Open_Times, +Close_Times, +Leave_Times, -Total_Times)
+* Apply time window constraints:
+* time_constraints(+Problem_Type, +N_Depots, +Routes, +Materialized_Routes, +Distances, +Service_Times, +Open_Times, +Close_Times, +Leave_Times)
 */
-time_constraints(_, _, _, [], [], _, _, _, _, [], []).
-time_constraints(Problem_Type, N_Depots, Max_Route_Time, [Route|Routes], [Materialized_Route|Materialized_Routes], Distances, Service_Times, Open_Times, Close_Times, [Leave_Time|Leave_Times], [Total_Time|Total_Times]):-
-  sum(Materialized_Route, #=, Total_Visited),
-  (Total_Visited #= 0 #/\ Total_Time #= 0) #\/ (Total_Visited #\= 0),
-  time_constraints_aux(Problem_Type, N_Depots, Route, Materialized_Route, Distances, Service_Times, Open_Times, Close_Times, 1, Leave_Time, Total_Time),
-  Total_Time #=< Max_Route_Time,
-  time_constraints(Problem_Type, N_Depots, Max_Route_Time, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, Leave_Times, Total_Times).
+time_window_constraints(_, _, [], [], _, _, _, _, []).
+time_window_constraints(mdvrp, _, _, _, _, _, _, _, _):- !.
+time_window_constraints(Problem_Type, N_Depots, [Route|Routes], [Materialized_Route|Materialized_Routes], Distances, Service_Times, Open_Times, Close_Times, [Route_Leave_Times|Leave_Times]):-
+  time_window_constraints_aux(Problem_Type, N_Depots, Route, Materialized_Route, Distances, Service_Times, Open_Times, Close_Times, 1, Route_Leave_Times),
+  time_window_constraints(Problem_Type, N_Depots, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, Leave_Times).
 
 /*
-* Apply time constraints for each route:
-* time_constraints_aux(+Problem_Type, +N_Depots, +Route, +Materialized_Route, +Distances, +Service_Times, +Open_Times, +Close_Times, +Index, -Leave_Time, -Total_Time)
+* Apply time window constraints for each route:
+* time_window_constraints_aux(+Problem_Type, +N_Depots, +Route, +Materialized_Route, +Distances, +Service_Times, +Open_Times, +Close_Times, +Index, +Leave_Times)
 */
-time_constraints_aux(_, _, [], [], _, _, _, _, _, _, _).
-time_constraints_aux(mdvrp, N_Depots, [Route|Routes], [Materialized_Route|Materialized_Routes], Distances, Service_Times, _, _, Index, Leave_Times, Total_Time):-
-  nth1(Index, Distances, Distances_Line),
-  element(Route, Distances_Line, Distance),
-  element(Route, Service_Times, Service_Time),
-  nth1(Index, Leave_Times, Leave_Time),
-  element(Route, Leave_Times, Next_Leave_Time),
-
-  Arrive_Time #= Leave_Time + Distance,
-
-  (Materialized_Route #= 0 #/\ Leave_Time #= 0)   #\/      % not part of the route 
-  (Next_Leave_Time #= Arrive_Time + Service_Time) #\/      % compute leave time of next node
-  (Route #=< N_Depots #/\ Total_Time #= Arrive_Time),      % calculate total time
-
-  New_Index is Index + 1,
-  time_constraints_aux(mdvrp, N_Depots, Routes, Materialized_Routes, Distances, Service_Times, _, _, New_Index, Leave_Times, Total_Time).
-
-time_constraints_aux(Problem_Type, N_Depots, [Route|Routes], [Materialized_Route|Materialized_Routes], Distances, Service_Times, Open_Times, Close_Times, Index, Leave_Times, Total_Time):-
+time_window_constraints_aux(_, _, [], [], _, _, _, _, _, _).
+time_window_constraints_aux(Problem_Type, N_Depots, [Route|Routes], [Materialized_Route|Materialized_Routes], Distances, Service_Times, Open_Times, Close_Times, Index, Leave_Times):-
   nth1(Index, Distances, Distances_Line),
   element(Route, Distances_Line, Distance),
   element(Route, Service_Times, Service_Time),
@@ -115,10 +97,37 @@ time_constraints_aux(Problem_Type, N_Depots, [Route|Routes], [Materialized_Route
 
   (Materialized_Route #= 0 #/\ Leave_Time #= 0) #\/         % not part of the route 
   (                                 
-    Close_Time #>= Arrive_Time #/\                             % must arrive before close time
+    Close_Time #>= Arrive_Time #/\                          % must arrive before close time
     Next_Leave_Time #= Next_Start_Work + Service_Time       % compute leave time of next node
 
-  ) #\/ (Route #=< N_Depots #/\ Total_Time #= Arrive_Time), % calculate total time
+  ) #\/ (Route #=< N_Depots),                               % so that the depot is not updated twice
 
   New_Index is Index + 1,
-  time_constraints_aux(Problem_Type, N_Depots, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, New_Index, Leave_Times, Total_Time).
+  time_window_constraints_aux(Problem_Type, N_Depots, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, New_Index, Leave_Times).
+
+
+/*
+* Apply total time constraints and compute total time for each route:
+* total_time_constraints(+Routes, +Materialized_Routes, +Max_Route_Time, +Distances, +Service_Times, +Total_Times)
+*/
+total_time_constraints([], [], _, _, _, []).
+total_time_constraints([Route|Routes], [Materialized_Route|Materialized_Routes], Max_Route_Time, Distances, Service_Times, [Total_Time|Total_Times]):-
+  sum(Materialized_Route, #=, Total_Visited),
+  (Total_Visited #= 0 #/\ Total_Time #= 0) #\/ (Total_Visited #\= 0),
+  total_time_constraints_aux(Route, Distances, Service_Times, 1, Total_Time),
+  Total_Time #=< Max_Route_Time,
+  total_time_constraints(Routes, Materialized_Routes, Max_Route_Time, Distances, Service_Times, Total_Times).
+
+/*
+* Compute route total time:
+* total_time_constraints_aux(+Route, +Distances, +Service_Times, +Index, -Total_Time)
+*/
+total_time_constraints_aux([], _, _, _, 0).
+total_time_constraints_aux([Route|Routes], Distances, Service_Times, Index, Next_Total_Time):-
+  nth1(Index, Distances, Distances_Line),
+  element(Route, Distances_Line, Distance),
+  element(Route, Service_Times, Service_Time),
+  
+  New_Index is Index + 1,
+  total_time_constraints_aux(Routes, Distances, Service_Times, New_Index, Total_Time),
+  Next_Total_Time #= Total_Time + Distance + Service_Time.

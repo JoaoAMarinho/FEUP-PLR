@@ -1,0 +1,80 @@
+d:/escola/faculdade/4_ano/2_semestre/plr/project/data/mdvrp/pr10:
+
+Labeling Time: 33.42s
+Flag: time_out
+Total Time: _241725847
+Variable Ordering: leftmost
+Value Selection: step
+Value Ordering: up
+Time Limit: 30000
+
+d:/escola/faculdade/4_ano/2_semestre/plr/project/data/mdvrp/pr10:
+
+Labeling Time: 66.65s
+Flag: time_out
+Total Time: _291273039
+Variable Ordering: leftmost
+Value Selection: step
+Value Ordering: up
+Time Limit: 60000
+
+d:/escola/faculdade/4_ano/2_semestre/plr/project/data/mdvrp/pr10:
+
+Labeling Time: 307.04s
+Flag: time_out
+Total Time: _392482195
+Variable Ordering: leftmost
+Value Selection: step
+Value Ordering: up
+Time Limit: 300000
+
+d:/escola/faculdade/4_ano/2_semestre/plr/project/data/mdvrp/pr10:
+
+Labeling Time: 626.51s
+Flag: time_out
+Total Time: _474306165
+Variable Ordering: leftmost
+Value Selection: step
+Value Ordering: up
+Time Limit: 600000
+
+d:/escola/faculdade/4_ano/2_semestre/plr/project/data/mdvrp/pr10:
+
+Labeling Time: 1211.59s
+Flag: time_out
+Total Time: _565801433
+Variable Ordering: leftmost
+Value Selection: step
+Value Ordering: up
+Time Limit: 1200000
+
+d:/escola/faculdade/4_ano/2_semestre/plr/project/data/mdvrp/pr10:
+
+Labeling Time: 51.68s
+Flag: time_out
+Total Time: _555263025
+Variable Ordering: leftmost
+Value Selection: step
+Value Ordering: down
+Time Limit: 30000
+
+d:/escola/faculdade/4_ano/2_semestre/plr/project/data/mdvrp/pr10:
+
+Labeling Time: 95.85s
+Flag: time_out
+Total Time: _757916147
+Variable Ordering: leftmost
+Value Selection: step
+Value Ordering: down
+Time Limit: 60000
+
+d:/escola/faculdade/4_ano/2_semestre/plr/project/data/mdvrp/pr10:
+
+Labeling Time: 301.73s
+Flag: time_out
+Total Time: _999254691
+Variable Ordering: leftmost
+Value Selection: step
+Value Ordering: down
+Time Limit: 300000
+
