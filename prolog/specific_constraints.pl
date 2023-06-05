@@ -59,15 +59,26 @@ customer_constraints_apply([Materialized_Customer|Materialized_Customers]):-
 
 
 /*
-* Apply time constraints and get total times:
-* time_constraints(+Problem_Type, +N_Depots, +Routes, +Materialized_Routes, +Distances, +Service_Times, +Open_Times, +Close_Times, +Leave_Times, -Total_Times)
+* Demand constraints:
+* demand_constraints(+Materialized_Routes, +Demands, +Max_Demand)
 */
-time_constraints(_, _, [], [], _, _, _, _, [], []).
-time_constraints(Problem_Type, N_Depots, [Route|Routes], [Materialized_Route|Materialized_Routes], Distances, Service_Times, Open_Times, Close_Times, [Leave_Time|Leave_Times], [Total_Time|Total_Times]):-
+demand_constraints([], _, _).
+demand_constraints([Materialized_Route|Materialized_Routes], Demands, Max_Demand):-
+  scalar_product(Demands, Materialized_Route, #=<, Max_Demand),
+  demand_constraints(Materialized_Routes, Demands, Max_Demand).
+
+
+/*
+* Apply time constraints and get total times:
+* time_constraints(+Problem_Type, +N_Depots, +Max_Route_Time, +Routes, +Materialized_Routes, +Distances, +Service_Times, +Open_Times, +Close_Times, +Leave_Times, -Total_Times)
+*/
+time_constraints(_, _, _, [], [], _, _, _, _, [], []).
+time_constraints(Problem_Type, N_Depots, Max_Route_Time, [Route|Routes], [Materialized_Route|Materialized_Routes], Distances, Service_Times, Open_Times, Close_Times, [Leave_Time|Leave_Times], [Total_Time|Total_Times]):-
   sum(Materialized_Route, #=, Total_Visited),
   (Total_Visited #= 0 #/\ Total_Time #= 0) #\/ (Total_Visited #\= 0),
   time_constraints_aux(Problem_Type, N_Depots, Route, Materialized_Route, Distances, Service_Times, Open_Times, Close_Times, 1, Leave_Time, Total_Time),
-  time_constraints(Problem_Type, N_Depots, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, Leave_Times, Total_Times).
+  Total_Time #=< Max_Route_Time,
+  time_constraints(Problem_Type, N_Depots, Max_Route_Time, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, Leave_Times, Total_Times).
 
 /*
 * Apply time constraints for each route:

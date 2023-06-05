@@ -11,13 +11,13 @@ problem_type(6, Type):-  Type = mdvrptw.
 
 /*
 * Parses an input file:
-* parse_file(-Problem_Type, -N_Vehicles, -N_Depots, -Depots_Info, -Depots, -Customers)
+* parse_file(+File, -Problem_Type, -N_Vehicles, -N_Depots, -Depots_Info, -Depots, -Customers)
 */
-parse_file(Problem_Type, N_Vehicles, N_Depots, Depots_Info, Depots, Customers):-
+parse_file(File, Problem_Type, N_Vehicles, N_Depots, Depots_Info, Depots, Customers):-
 	%write('Enter the file path: '),
 	%read(Filepath),
 	%see(Filepath),
-	see('../data/mdvrptw/pr000'),
+	see(File),
 	parse_first_line(Problem_ID, N_Vehicles, N_Customers, N_Depots),
 	problem_type(Problem_ID, Problem_Type),
 	parse_depots_info(N_Depots, Depots_Info),
@@ -96,7 +96,8 @@ read_line_info(Problem_Type, ID, X, Y, Service_Time, Demand, Frequency, Visit_Co
 	read_float(Y),
 	read_float(Service_Time_Float),
 	Service_Time is round(Service_Time_Float),
-	read_float(Demand),
+	read_float(Demand_Float),
+	Demand is round(Demand_Float),
 	read_int(Frequency),
 	read_int(N_Visit_Combinations),
 	read_int_list(N_Visit_Combinations, Visit_Combinations),

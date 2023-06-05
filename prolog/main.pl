@@ -66,20 +66,21 @@ build_leave_times_aux(Leave_Time, N_Depots):-
 
 
 /*
-* Solve vrp problem with given parameters, return routes, total time and flag:
-* solve_problem(+Variable_Ordering, +Value_Selection, +Value_Ordering, +Time_Limit, -Solution)
+* Solve a given vrp problem with given parameters, return routes, total time and flag:
+* solve_problem(+File, +Variable_Ordering, +Value_Selection, +Value_Ordering, +Time_Limit, -Solution)
 */
-solve_problem(Variable_Ordering, Value_Selection, Value_Ordering, Time_Limit, Solution):-
-  parse_file(Problem_Type, N_Vehicles, N_Depots, Depots_Info, Depots, Customers),
+solve_problem(File, Variable_Ordering, Value_Selection, Value_Ordering, Time_Limit, Solution):-
+  parse_file(File, Problem_Type, N_Vehicles, N_Depots, Depots_Info, Depots, Customers),
   statistics(total_runtime, _), % reset total_runtime
   
   append(Depots, Customers, All_Nodes),
   get_service_times(All_Nodes, Service_Times),
+  get_demands(All_Nodes, Demands),
   get_time_windows(Problem_Type, All_Nodes, Open_Times, Close_Times),
 
-  get_depot_max_duration(Depots_Info, Max_Duration),
+  get_depot_max_values(Depots_Info, Max_Duration, Max_Demand),
   maximum(Max_Close_Time, Close_Times),
-  get_max_leave_time(Problem_Type, Max_Duration, Max_Close_Time, Max_Leave_Time),
+  get_max_route_time(Problem_Type, Max_Duration, Max_Close_Time, Max_Route_Time),
 
   calculate_distances_matrix(All_Nodes, Distances),
   
@@ -92,11 +93,12 @@ solve_problem(Variable_Ordering, Value_Selection, Value_Ordering, Time_Limit, So
 
   depot_constraints(Routes, Materialized_Routes, N_Vehicles, N_Depots, 0),
   customer_constraints(Materialized_Customers),
+  demand_constraints(Materialized_Routes, Demands, Max_Demand),
 
   length(Leave_Times, N_Total_Vehicles),
-  build_leave_times(N_Depots, N_Routes, Max_Leave_Time, Leave_Times),
+  build_leave_times(N_Depots, N_Routes, Max_Route_Time, Leave_Times),
 
-  time_constraints(Problem_Type, N_Depots, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, Leave_Times, Total_Times),
+  time_constraints(Problem_Type, N_Depots, Max_Route_Time, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, Leave_Times, Total_Times),
   sum(Total_Times, #=, Total_Time),
 
   append(Routes, Flat_Routes),

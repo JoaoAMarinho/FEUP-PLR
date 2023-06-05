@@ -8,6 +8,15 @@ get_service_times([node(_, _, _, Service_Time, _, _)|Rest], [Service_Time|Servic
 
 
 /*
+* Get demands from a list of nodes:
+* get_demands(+All_Nodes, -Demands)
+*/
+get_demands([], []).
+get_demands([node(_, _, _, _, Demand, _)|Rest], [Demand|Demands]):-
+  get_demands(Rest, Demands).
+
+
+/*
 * Get time windows from a list of nodes:
 * get_time_windows(+Problem_Type, +All_Nodes, -Open_Times, -Close_Times)
 */
@@ -19,28 +28,29 @@ get_time_windows(Problem_Type, [node(_, _, _, _, _, Open-Close)|Rest], [Open|Ope
 
 
 /*
-* Get max durations from depot info list:
-* get_depot_max_duration(+Depots_Info, -Max_Duration)
+* Get max values from depot info list:
+* get_depot_max_values(+Depots_Info, -Max_Duration, -Max_Demand)
 */
-get_depot_max_duration(Depots_Info, Max_Duration):-
-  get_depot_durations(Depots_Info, Durations),
-  maximum(Max_Duration, Durations).
+get_depot_max_values(Depots_Info, Max_Duration, Max_Demand):-
+  get_depot_values(Depots_Info, Durations, Demands),
+  maximum(Max_Duration, Durations),
+  maximum(Max_Demand, Demands).
 
 /*
-* Get durations from depot info list:
-* get_depot_durations(+Depots_Info, -Durations)
+* Get list of durations and demands from depot info list:
+* get_depot_values(+Depots_Info, -Durations, -Demands)
 */
-get_depot_durations([], []).
-get_depot_durations([depot_info(Max_Duration, _)|Rest], [Max_Duration|Durations]):-
-  get_depot_durations(Rest, Durations).
+get_depot_values([], [], []).
+get_depot_values([depot_info(Duration, Demand)|Rest], [Duration|Durations], [Demand|Demands]):-
+  get_depot_values(Rest, Durations, Demands).
 
 
 /*
-* Get max leave time according to problem type:
-* get_max_leave_time(+Problem_Type, +Max_Duration, +Max_Close_Time, -Max_Leave_Time)
+* Get max route time according to problem type:
+* get_max_route_time(+Problem_Type, +Max_Duration, +Max_Close_Time, -Max_Route_Time)
 */
-get_max_leave_time(mdvrp, Max_Leave_Time, _, Max_Leave_Time).
-get_max_leave_time(_, _, Max_Leave_Time, Max_Leave_Time).
+get_max_route_time(mdvrp, Max_Route_Time, _, Max_Route_Time).
+get_max_route_time(_, _, Max_Route_Time, Max_Route_Time).
 
 
 /*
