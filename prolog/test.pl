@@ -1,4 +1,5 @@
 :-use_module(library(file_systems)).
+:-use_module(library(random)).
 
 :- [solver].
 
@@ -12,15 +13,32 @@ get_files(Directory, Files) :-
 
 
 /*
+* Random variable ordering:
+* random_variable_ordering(ListOfVars, Var, Rest)
+*/
+random_variable_ordering(ListOfVars, Var, Rest):-
+  random_select(Var, ListOfVars, Rest).
+
+/*
+* Random value selection:
+* random_value_selection(Var, Rest, BB0, BB1)
+*/
+random_value_selection(Var, Rest, BB0, BB1):-
+  fd_set(Var, Set), fdset_to_list(Set, List),
+  random_member(Value, List),
+  ( first_bound(BB0, BB1), Var #= Value ;
+  later_bound(BB0, BB1), Var #\= Value ).
+
+
+/*
 * Return a list of all possible combinations of the following parameters:
 * get_test_combinations(-Test_Combinations)
 */
 get_test_combinations(Test_Combinations):-
-  Variable_Ordering = [leftmost, min, max, ff, anti_first_fail, occurrence, ffc, max_regret, impact, dom_w_deg], % We can add random ordering
-  Value_Selection = [step, enum, bisect, median, middle],  % We can add random selection
+  Variable_Ordering = [leftmost, min, max, ff, anti_first_fail, occurrence, ffc, max_regret, impact, dom_w_deg, variable(random_variable_ordering)],
+  Value_Selection = [step, enum, bisect, median, middle, value(random_value_selection)],
   Value_Ordering = [up, down],
   Time_Limits = [30000, 60000, 300000, 600000, 1200000], % 30 sec, 1 min, 5 min, 10 min, 20 min
-  % We can add restart search scheme
 
   get_files('../data/mdvrp', MD_Files),
   get_files('../data/vrptw', TW_Files),
@@ -74,6 +92,7 @@ test:-
 
 test_default:-
   get_files('../data/test', Files),
+  %Files = ['../data/test/c000'],
   (
     foreach(File, Files) do
     solve_problem(File, leftmost, step, up, 30000, Solution),

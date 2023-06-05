@@ -75,15 +75,15 @@ demand_constraints([Materialized_Route|Materialized_Routes], Demands, Max_Demand
 time_window_constraints(_, _, [], [], _, _, _, _, []).
 time_window_constraints(mdvrp, _, _, _, _, _, _, _, _):- !.
 time_window_constraints(Problem_Type, N_Depots, [Route|Routes], [Materialized_Route|Materialized_Routes], Distances, Service_Times, Open_Times, Close_Times, [Route_Leave_Times|Leave_Times]):-
-  time_window_constraints_aux(Problem_Type, N_Depots, Route, Materialized_Route, Distances, Service_Times, Open_Times, Close_Times, 1, Route_Leave_Times),
+  time_window_constraints_aux(N_Depots, Route, Materialized_Route, Distances, Service_Times, Open_Times, Close_Times, 1, Route_Leave_Times),
   time_window_constraints(Problem_Type, N_Depots, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, Leave_Times).
 
 /*
 * Apply time window constraints for each route:
-* time_window_constraints_aux(+Problem_Type, +N_Depots, +Route, +Materialized_Route, +Distances, +Service_Times, +Open_Times, +Close_Times, +Index, +Leave_Times)
+* time_window_constraints_aux(+N_Depots, +Route, +Materialized_Route, +Distances, +Service_Times, +Open_Times, +Close_Times, +Index, +Leave_Times)
 */
-time_window_constraints_aux(_, _, [], [], _, _, _, _, _, _).
-time_window_constraints_aux(Problem_Type, N_Depots, [Route|Routes], [Materialized_Route|Materialized_Routes], Distances, Service_Times, Open_Times, Close_Times, Index, Leave_Times):-
+time_window_constraints_aux(_, [], [], _, _, _, _, _, _).
+time_window_constraints_aux(N_Depots, [Route|Routes], [Materialized_Route|Materialized_Routes], Distances, Service_Times, Open_Times, Close_Times, Index, Leave_Times):-
   nth1(Index, Distances, Distances_Line),
   element(Route, Distances_Line, Distance),
   element(Route, Service_Times, Service_Time),
@@ -103,7 +103,7 @@ time_window_constraints_aux(Problem_Type, N_Depots, [Route|Routes], [Materialize
   ) #\/ (Route #=< N_Depots),                               % so that the depot is not updated twice
 
   New_Index is Index + 1,
-  time_window_constraints_aux(Problem_Type, N_Depots, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, New_Index, Leave_Times).
+  time_window_constraints_aux(N_Depots, Routes, Materialized_Routes, Distances, Service_Times, Open_Times, Close_Times, New_Index, Leave_Times).
 
 
 /*
@@ -114,20 +114,20 @@ total_time_constraints([], [], _, _, _, []).
 total_time_constraints([Route|Routes], [Materialized_Route|Materialized_Routes], Max_Route_Time, Distances, Service_Times, [Total_Time|Total_Times]):-
   sum(Materialized_Route, #=, Total_Visited),
   (Total_Visited #= 0 #/\ Total_Time #= 0) #\/ (Total_Visited #\= 0),
-  total_time_constraints_aux(Route, Distances, Service_Times, 1, Total_Time),
+  total_time_constraints_aux(Route, Materialized_Route, Distances, Service_Times, 1, Total_Time),
   Total_Time #=< Max_Route_Time,
   total_time_constraints(Routes, Materialized_Routes, Max_Route_Time, Distances, Service_Times, Total_Times).
 
 /*
 * Compute route total time:
-* total_time_constraints_aux(+Route, +Distances, +Service_Times, +Index, -Total_Time)
+* total_time_constraints_aux(+Route, +Materialized_Routes, +Distances, +Service_Times, +Index, -Total_Time)
 */
-total_time_constraints_aux([], _, _, _, 0).
-total_time_constraints_aux([Route|Routes], Distances, Service_Times, Index, Next_Total_Time):-
+total_time_constraints_aux([], [], _, _, _, 0).
+total_time_constraints_aux([Route|Routes], [Materialized_Route|Materialized_Routes], Distances, Service_Times, Index, Next_Total_Time):-
   nth1(Index, Distances, Distances_Line),
   element(Route, Distances_Line, Distance),
   element(Route, Service_Times, Service_Time),
   
   New_Index is Index + 1,
-  total_time_constraints_aux(Routes, Distances, Service_Times, New_Index, Total_Time),
-  Next_Total_Time #= Total_Time + Distance + Service_Time.
+  total_time_constraints_aux(Routes, Materialized_Routes, Distances, Service_Times, New_Index, Total_Time),
+  Next_Total_Time #= Total_Time + (Distance + Service_Time) * Materialized_Route.

@@ -55,27 +55,27 @@ get_max_route_time(_, _, Max_Route_Time, Max_Route_Time).
 
 /*
 * Wrapper for calculating distances matrix:
-* calculate_distances_matrix(+All_Nodes, -Distances_Matrix)
+* get_distances_matrix(+All_Nodes, -Distances_Matrix)
 */
-calculate_distances_matrix(All_Nodes, Distances_Matrix):-
-  calculate_distances_matrix(All_Nodes, All_Nodes, Distances_Matrix).
+get_distances_matrix(All_Nodes, Distances_Matrix):-
+  get_distances_matrix(All_Nodes, All_Nodes, Distances_Matrix).
 
 /*
 * Calculate distances matrix for all nodes:
-* calculate_distances_matrix(+Nodes, +All_Nodes, -Distances_Matrix)
+* get_distances_matrix(+Nodes, +All_Nodes, -Distances_Matrix)
 */
-calculate_distances_matrix([], _, []).
-calculate_distances_matrix([Node|Nodes], All_Nodes, [Distances_Line|Distances_Rest]):-
-  calculate_distances_line(Node, All_Nodes, Distances_Line),
-  calculate_distances_matrix(Nodes, All_Nodes, Distances_Rest).
+get_distances_matrix([], _, []).
+get_distances_matrix([Node|Nodes], All_Nodes, [Distances_Line|Distances_Rest]):-
+  get_distances_line(Node, All_Nodes, Distances_Line),
+  get_distances_matrix(Nodes, All_Nodes, Distances_Rest).
 
 /*
 * Calculate distances line:
-* calculate_distances_line(+Node, +All_Nodes, -Distances_Line)
+* get_distances_line(+Node, +All_Nodes, -Distances_Line)
 */
-calculate_distances_line(_, [], []).
-calculate_distances_line(Node1, [Node2|Nodes], [Distance|Distances]):-
+get_distances_line(_, [], []).
+get_distances_line(Node1, [Node2|Nodes], [Distance|Distances]):-
   Node1 = node(_, X1, Y1, _, _, _),
   Node2 = node(_, X2, Y2, _, _, _),
   Distance is round((sqrt((X1-X2)^2 + (Y1-Y2)^2))/2),
-  calculate_distances_line(Node1, Nodes, Distances).
+  get_distances_line(Node1, Nodes, Distances).

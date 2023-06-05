@@ -82,7 +82,7 @@ solve_problem(File, Variable_Ordering, Value_Selection, Value_Ordering, Time_Lim
   maximum(Max_Close_Time, Close_Times),
   get_max_route_time(Problem_Type, Max_Duration, Max_Close_Time, Max_Route_Time),
 
-  calculate_distances_matrix(All_Nodes, Distances),
+  get_distances_matrix(All_Nodes, Distances),
   
   length(All_Nodes, N_Routes),
   N_Total_Vehicles is N_Vehicles * N_Depots,
