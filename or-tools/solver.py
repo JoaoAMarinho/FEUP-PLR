@@ -62,7 +62,7 @@ def print_solution_time(data, manager, routing, solution):
     print('Total time of all routes: {}min'.format(total_time))
     print('Total distance of all routes: {}m'.format(total_distance))
 
-def solve(vrp):
+def solve(vrp, fs):
     """Simple Vehicles Routing Problem."""
     """Entry point of the program."""
     # Instantiate the data problem.
@@ -75,9 +75,6 @@ def solve(vrp):
     manager = pywrapcp.RoutingIndexManager(len(data['distance_matrix']),
                                            data['num_vehicles'], data['starts'],
                                            data['ends'])
-    print(data['num_vehicles'], data['starts'], data['ends'])
-    print(data['max_route_length'])
-    print(data['distance_matrix'])
     # [END index_manager]
     # Create Routing Model.
     routing = pywrapcp.RoutingModel(manager)
@@ -157,9 +154,10 @@ def solve(vrp):
     # Setting first solution heuristic.
     search_parameters = pywrapcp.DefaultRoutingSearchParameters()
     search_parameters.first_solution_strategy = (
-        routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC)
-    search_parameters.log_search = True
-
+        fs)
+    search_parameters.time_limit.FromSeconds(1200)
+    #search_parameters.log_search = True
+    print(search_parameters)
     routing.CloseModelWithParameters(search_parameters)
 
     collector = routing.solver().AllSolutionCollector()
