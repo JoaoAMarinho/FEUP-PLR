@@ -20,6 +20,7 @@ FILES = [[
     "pr09",
     "pr10"
 ], [
+    "pr00",
     "pr01",
     "pr02",
     "pr03",
@@ -29,7 +30,6 @@ FILES = [[
     "pr07",
     "pr08",
     "pr09",
-    "pr10",
 ], [
     "c100",
     "c101",
@@ -60,8 +60,10 @@ def main(problem, file, fs):
 fs = routing_enums_pb2.FirstSolutionStrategy.LOCAL_CHEAPEST_INSERTION
 
 if __name__ == "__main__":
-    for i in range(2,3): #Problem
-        for file in FILES[i]: #FILE
-            file_data = main(i, file, fs)
-            with open(RESULT_PATH + PROBLEM_FOLDER[i] + file + "1hour", "w") as outfile:
-                json.dump(file_data, outfile, indent=2)
+    i = 1
+    file = "pr00"
+    file_data = {}
+    for s in SEARCH_PARAMS:
+        file_data[s] = main(i, file, SEARCH_PARAMS[s])
+        with open(RESULT_PATH + PROBLEM_FOLDER[i] + file, "w") as outfile:
+            json.dump(file_data, outfile, indent=2)
