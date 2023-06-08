@@ -1,0 +1,1586 @@
+first_solution_strategy: PATH_CHEAPEST_ARC
+savings_neighbors_ratio: 1
+savings_max_memory_usage_bytes: 6000000000
+savings_arc_coefficient: 1
+cheapest_insertion_first_solution_neighbors_ratio: 1
+cheapest_insertion_first_solution_min_neighbors: 1
+cheapest_insertion_ls_operator_neighbors_ratio: 1
+cheapest_insertion_ls_operator_min_neighbors: 1
+local_cheapest_insertion_evaluate_pickup_delivery_costs_independently: true
+local_search_operators {
+  use_relocate: BOOL_TRUE
+  use_relocate_pair: BOOL_TRUE
+  use_light_relocate_pair: BOOL_TRUE
+  use_relocate_neighbors: BOOL_FALSE
+  use_relocate_subtrip: BOOL_TRUE
+  use_exchange: BOOL_TRUE
+  use_exchange_pair: BOOL_TRUE
+  use_exchange_subtrip: BOOL_TRUE
+  use_cross: BOOL_TRUE
+  use_cross_exchange: BOOL_FALSE
+  use_relocate_expensive_chain: BOOL_TRUE
+  use_two_opt: BOOL_TRUE
+  use_or_opt: BOOL_TRUE
+  use_lin_kernighan: BOOL_TRUE
+  use_tsp_opt: BOOL_FALSE
+  use_make_active: BOOL_TRUE
+  use_relocate_and_make_active: BOOL_FALSE
+  use_make_inactive: BOOL_TRUE
+  use_make_chain_inactive: BOOL_TRUE
+  use_swap_active: BOOL_TRUE
+  use_extended_swap_active: BOOL_FALSE
+  use_node_pair_swap_active: BOOL_FALSE
+  use_path_lns: BOOL_FALSE
+  use_full_path_lns: BOOL_FALSE
+  use_tsp_lns: BOOL_FALSE
+  use_inactive_lns: BOOL_FALSE
+  use_global_cheapest_insertion_path_lns: BOOL_TRUE
+  use_local_cheapest_insertion_path_lns: BOOL_TRUE
+  use_relocate_path_global_cheapest_insertion_insert_unperformed: BOOL_TRUE
+  use_global_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_local_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_global_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+  use_local_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+}
+multi_armed_bandit_compound_operator_memory_coefficient: 0.04
+multi_armed_bandit_compound_operator_exploration_coefficient: 1000000000000
+relocate_expensive_chain_num_arcs_to_consider: 4
+heuristic_expensive_chain_lns_num_arcs_to_consider: 4
+heuristic_close_nodes_lns_num_nodes: 5
+local_search_metaheuristic: AUTOMATIC
+guided_local_search_lambda_coefficient: 0.1
+use_cp: BOOL_TRUE
+use_cp_sat: BOOL_FALSE
+use_generalized_cp_sat: BOOL_FALSE
+sat_parameters {
+  num_search_workers: 1
+  linearization_level: 2
+}
+continuous_scheduling_solver: SCHEDULING_GLOP
+mixed_integer_scheduling_solver: SCHEDULING_CP_SAT
+disable_scheduling_beware_this_may_degrade_performance: false
+number_of_solutions_to_collect: 1
+solution_limit: 9223372036854775807
+time_limit {
+  seconds: 1200
+}
+lns_time_limit {
+  nanos: 100000000
+}
+log_cost_scaling_factor: 1
+
+Objective: 1007
+Route for vehicle 0:
+ 0 ->  38 ->  12 ->  45 ->  49 ->  51 ->  6 ->  9 ->  30 ->  22 ->  7 ->  17 ->  31 ->  39 ->  44 ->  34 ->  47 ->  35 ->  40 -> 0
+Distance of the route: 434m
+Load of the route: 199/200
+
+Route for vehicle 1:
+ 1 ->  13 ->  48 ->  14 ->  37 ->  10 ->  25 -> 1
+Distance of the route: 87m
+Load of the route: 106/200
+
+Route for vehicle 2:
+ 2 ->  4 ->  23 ->  36 ->  16 ->  11 ->  32 ->  8 ->  20 ->  21 ->  29 ->  19 -> 2
+Distance of the route: 210m
+Load of the route: 161/200
+
+Route for vehicle 3:
+ 3 ->  33 ->  42 ->  46 ->  27 ->  50 ->  24 ->  15 ->  41 ->  43 ->  18 ->  28 ->  26 ->  5 -> 3
+Distance of the route: 276m
+Load of the route: 191/200
+
+Maximum of the route distances: 434m
+Total route distance 1007
+first_solution_strategy: PATH_MOST_CONSTRAINED_ARC
+savings_neighbors_ratio: 1
+savings_max_memory_usage_bytes: 6000000000
+savings_arc_coefficient: 1
+cheapest_insertion_first_solution_neighbors_ratio: 1
+cheapest_insertion_first_solution_min_neighbors: 1
+cheapest_insertion_ls_operator_neighbors_ratio: 1
+cheapest_insertion_ls_operator_min_neighbors: 1
+local_cheapest_insertion_evaluate_pickup_delivery_costs_independently: true
+local_search_operators {
+  use_relocate: BOOL_TRUE
+  use_relocate_pair: BOOL_TRUE
+  use_light_relocate_pair: BOOL_TRUE
+  use_relocate_neighbors: BOOL_FALSE
+  use_relocate_subtrip: BOOL_TRUE
+  use_exchange: BOOL_TRUE
+  use_exchange_pair: BOOL_TRUE
+  use_exchange_subtrip: BOOL_TRUE
+  use_cross: BOOL_TRUE
+  use_cross_exchange: BOOL_FALSE
+  use_relocate_expensive_chain: BOOL_TRUE
+  use_two_opt: BOOL_TRUE
+  use_or_opt: BOOL_TRUE
+  use_lin_kernighan: BOOL_TRUE
+  use_tsp_opt: BOOL_FALSE
+  use_make_active: BOOL_TRUE
+  use_relocate_and_make_active: BOOL_FALSE
+  use_make_inactive: BOOL_TRUE
+  use_make_chain_inactive: BOOL_TRUE
+  use_swap_active: BOOL_TRUE
+  use_extended_swap_active: BOOL_FALSE
+  use_node_pair_swap_active: BOOL_FALSE
+  use_path_lns: BOOL_FALSE
+  use_full_path_lns: BOOL_FALSE
+  use_tsp_lns: BOOL_FALSE
+  use_inactive_lns: BOOL_FALSE
+  use_global_cheapest_insertion_path_lns: BOOL_TRUE
+  use_local_cheapest_insertion_path_lns: BOOL_TRUE
+  use_relocate_path_global_cheapest_insertion_insert_unperformed: BOOL_TRUE
+  use_global_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_local_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_global_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+  use_local_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+}
+multi_armed_bandit_compound_operator_memory_coefficient: 0.04
+multi_armed_bandit_compound_operator_exploration_coefficient: 1000000000000
+relocate_expensive_chain_num_arcs_to_consider: 4
+heuristic_expensive_chain_lns_num_arcs_to_consider: 4
+heuristic_close_nodes_lns_num_nodes: 5
+local_search_metaheuristic: AUTOMATIC
+guided_local_search_lambda_coefficient: 0.1
+use_cp: BOOL_TRUE
+use_cp_sat: BOOL_FALSE
+use_generalized_cp_sat: BOOL_FALSE
+sat_parameters {
+  num_search_workers: 1
+  linearization_level: 2
+}
+continuous_scheduling_solver: SCHEDULING_GLOP
+mixed_integer_scheduling_solver: SCHEDULING_CP_SAT
+disable_scheduling_beware_this_may_degrade_performance: false
+number_of_solutions_to_collect: 1
+solution_limit: 9223372036854775807
+time_limit {
+  seconds: 1200
+}
+lns_time_limit {
+  nanos: 100000000
+}
+log_cost_scaling_factor: 1
+
+Objective: 1027
+Route for vehicle 0:
+ 0 ->  40 ->  10 ->  44 ->  22 ->  7 ->  17 ->  31 ->  39 ->  18 ->  43 ->  41 ->  15 ->  24 ->  27 ->  50 ->  38 -> 0
+Distance of the route: 373m
+Load of the route: 187/200
+
+Route for vehicle 1:
+ 1 ->  13 ->  37 ->  14 ->  48 ->  51 ->  6 ->  9 ->  30 ->  25 -> 1
+Distance of the route: 186m
+Load of the route: 140/200
+
+Route for vehicle 2:
+ 2 ->  4 ->  23 ->  36 ->  16 ->  11 ->  32 ->  8 ->  20 ->  21 ->  28 ->  26 ->  29 ->  19 -> 2
+Distance of the route: 249m
+Load of the route: 189/200
+
+Route for vehicle 3:
+ 3 ->  5 ->  34 ->  35 ->  47 ->  12 ->  45 ->  49 ->  46 ->  42 ->  33 -> 3
+Distance of the route: 219m
+Load of the route: 141/200
+
+Maximum of the route distances: 373m
+Total route distance 1027
+first_solution_strategy: LOCAL_CHEAPEST_INSERTION
+savings_neighbors_ratio: 1
+savings_max_memory_usage_bytes: 6000000000
+savings_arc_coefficient: 1
+cheapest_insertion_first_solution_neighbors_ratio: 1
+cheapest_insertion_first_solution_min_neighbors: 1
+cheapest_insertion_ls_operator_neighbors_ratio: 1
+cheapest_insertion_ls_operator_min_neighbors: 1
+local_cheapest_insertion_evaluate_pickup_delivery_costs_independently: true
+local_search_operators {
+  use_relocate: BOOL_TRUE
+  use_relocate_pair: BOOL_TRUE
+  use_light_relocate_pair: BOOL_TRUE
+  use_relocate_neighbors: BOOL_FALSE
+  use_relocate_subtrip: BOOL_TRUE
+  use_exchange: BOOL_TRUE
+  use_exchange_pair: BOOL_TRUE
+  use_exchange_subtrip: BOOL_TRUE
+  use_cross: BOOL_TRUE
+  use_cross_exchange: BOOL_FALSE
+  use_relocate_expensive_chain: BOOL_TRUE
+  use_two_opt: BOOL_TRUE
+  use_or_opt: BOOL_TRUE
+  use_lin_kernighan: BOOL_TRUE
+  use_tsp_opt: BOOL_FALSE
+  use_make_active: BOOL_TRUE
+  use_relocate_and_make_active: BOOL_FALSE
+  use_make_inactive: BOOL_TRUE
+  use_make_chain_inactive: BOOL_TRUE
+  use_swap_active: BOOL_TRUE
+  use_extended_swap_active: BOOL_FALSE
+  use_node_pair_swap_active: BOOL_FALSE
+  use_path_lns: BOOL_FALSE
+  use_full_path_lns: BOOL_FALSE
+  use_tsp_lns: BOOL_FALSE
+  use_inactive_lns: BOOL_FALSE
+  use_global_cheapest_insertion_path_lns: BOOL_TRUE
+  use_local_cheapest_insertion_path_lns: BOOL_TRUE
+  use_relocate_path_global_cheapest_insertion_insert_unperformed: BOOL_TRUE
+  use_global_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_local_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_global_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+  use_local_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+}
+multi_armed_bandit_compound_operator_memory_coefficient: 0.04
+multi_armed_bandit_compound_operator_exploration_coefficient: 1000000000000
+relocate_expensive_chain_num_arcs_to_consider: 4
+heuristic_expensive_chain_lns_num_arcs_to_consider: 4
+heuristic_close_nodes_lns_num_nodes: 5
+local_search_metaheuristic: AUTOMATIC
+guided_local_search_lambda_coefficient: 0.1
+use_cp: BOOL_TRUE
+use_cp_sat: BOOL_FALSE
+use_generalized_cp_sat: BOOL_FALSE
+sat_parameters {
+  num_search_workers: 1
+  linearization_level: 2
+}
+continuous_scheduling_solver: SCHEDULING_GLOP
+mixed_integer_scheduling_solver: SCHEDULING_CP_SAT
+disable_scheduling_beware_this_may_degrade_performance: false
+number_of_solutions_to_collect: 1
+solution_limit: 9223372036854775807
+time_limit {
+  seconds: 1200
+}
+lns_time_limit {
+  nanos: 100000000
+}
+log_cost_scaling_factor: 1
+
+Objective: 1083
+Route for vehicle 0:
+ 0 ->  38 ->  12 ->  45 ->  49 ->  46 ->  27 ->  50 ->  18 ->  28 ->  21 ->  29 ->  39 ->  34 -> 0
+Distance of the route: 296m
+Load of the route: 193/200
+
+Route for vehicle 1:
+ 1 ->  13 ->  37 ->  14 ->  48 ->  51 ->  6 ->  9 ->  30 ->  25 -> 1
+Distance of the route: 186m
+Load of the route: 140/200
+
+Route for vehicle 2:
+ 2 ->  26 ->  33 ->  24 ->  15 ->  41 ->  43 ->  20 ->  8 ->  11 ->  16 ->  36 ->  23 ->  22 ->  7 ->  17 ->  31 -> 2
+Distance of the route: 402m
+Load of the route: 195/200
+
+Route for vehicle 3:
+ 3 ->  42 ->  35 ->  47 ->  40 ->  10 ->  44 ->  4 ->  32 ->  19 ->  5 -> 3
+Distance of the route: 199m
+Load of the route: 129/200
+
+Maximum of the route distances: 402m
+Total route distance 1083
+first_solution_strategy: BEST_INSERTION
+savings_neighbors_ratio: 1
+savings_max_memory_usage_bytes: 6000000000
+savings_arc_coefficient: 1
+cheapest_insertion_first_solution_neighbors_ratio: 1
+cheapest_insertion_first_solution_min_neighbors: 1
+cheapest_insertion_ls_operator_neighbors_ratio: 1
+cheapest_insertion_ls_operator_min_neighbors: 1
+local_cheapest_insertion_evaluate_pickup_delivery_costs_independently: true
+local_search_operators {
+  use_relocate: BOOL_TRUE
+  use_relocate_pair: BOOL_TRUE
+  use_light_relocate_pair: BOOL_TRUE
+  use_relocate_neighbors: BOOL_FALSE
+  use_relocate_subtrip: BOOL_TRUE
+  use_exchange: BOOL_TRUE
+  use_exchange_pair: BOOL_TRUE
+  use_exchange_subtrip: BOOL_TRUE
+  use_cross: BOOL_TRUE
+  use_cross_exchange: BOOL_FALSE
+  use_relocate_expensive_chain: BOOL_TRUE
+  use_two_opt: BOOL_TRUE
+  use_or_opt: BOOL_TRUE
+  use_lin_kernighan: BOOL_TRUE
+  use_tsp_opt: BOOL_FALSE
+  use_make_active: BOOL_TRUE
+  use_relocate_and_make_active: BOOL_FALSE
+  use_make_inactive: BOOL_TRUE
+  use_make_chain_inactive: BOOL_TRUE
+  use_swap_active: BOOL_TRUE
+  use_extended_swap_active: BOOL_FALSE
+  use_node_pair_swap_active: BOOL_FALSE
+  use_path_lns: BOOL_FALSE
+  use_full_path_lns: BOOL_FALSE
+  use_tsp_lns: BOOL_FALSE
+  use_inactive_lns: BOOL_FALSE
+  use_global_cheapest_insertion_path_lns: BOOL_TRUE
+  use_local_cheapest_insertion_path_lns: BOOL_TRUE
+  use_relocate_path_global_cheapest_insertion_insert_unperformed: BOOL_TRUE
+  use_global_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_local_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_global_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+  use_local_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+}
+multi_armed_bandit_compound_operator_memory_coefficient: 0.04
+multi_armed_bandit_compound_operator_exploration_coefficient: 1000000000000
+relocate_expensive_chain_num_arcs_to_consider: 4
+heuristic_expensive_chain_lns_num_arcs_to_consider: 4
+heuristic_close_nodes_lns_num_nodes: 5
+local_search_metaheuristic: AUTOMATIC
+guided_local_search_lambda_coefficient: 0.1
+use_cp: BOOL_TRUE
+use_cp_sat: BOOL_FALSE
+use_generalized_cp_sat: BOOL_FALSE
+sat_parameters {
+  num_search_workers: 1
+  linearization_level: 2
+}
+continuous_scheduling_solver: SCHEDULING_GLOP
+mixed_integer_scheduling_solver: SCHEDULING_CP_SAT
+disable_scheduling_beware_this_may_degrade_performance: false
+number_of_solutions_to_collect: 1
+solution_limit: 9223372036854775807
+time_limit {
+  seconds: 1200
+}
+lns_time_limit {
+  nanos: 100000000
+}
+log_cost_scaling_factor: 1
+
+NO SOLUTION
+first_solution_strategy: GLOBAL_CHEAPEST_ARC
+savings_neighbors_ratio: 1
+savings_max_memory_usage_bytes: 6000000000
+savings_arc_coefficient: 1
+cheapest_insertion_first_solution_neighbors_ratio: 1
+cheapest_insertion_first_solution_min_neighbors: 1
+cheapest_insertion_ls_operator_neighbors_ratio: 1
+cheapest_insertion_ls_operator_min_neighbors: 1
+local_cheapest_insertion_evaluate_pickup_delivery_costs_independently: true
+local_search_operators {
+  use_relocate: BOOL_TRUE
+  use_relocate_pair: BOOL_TRUE
+  use_light_relocate_pair: BOOL_TRUE
+  use_relocate_neighbors: BOOL_FALSE
+  use_relocate_subtrip: BOOL_TRUE
+  use_exchange: BOOL_TRUE
+  use_exchange_pair: BOOL_TRUE
+  use_exchange_subtrip: BOOL_TRUE
+  use_cross: BOOL_TRUE
+  use_cross_exchange: BOOL_FALSE
+  use_relocate_expensive_chain: BOOL_TRUE
+  use_two_opt: BOOL_TRUE
+  use_or_opt: BOOL_TRUE
+  use_lin_kernighan: BOOL_TRUE
+  use_tsp_opt: BOOL_FALSE
+  use_make_active: BOOL_TRUE
+  use_relocate_and_make_active: BOOL_FALSE
+  use_make_inactive: BOOL_TRUE
+  use_make_chain_inactive: BOOL_TRUE
+  use_swap_active: BOOL_TRUE
+  use_extended_swap_active: BOOL_FALSE
+  use_node_pair_swap_active: BOOL_FALSE
+  use_path_lns: BOOL_FALSE
+  use_full_path_lns: BOOL_FALSE
+  use_tsp_lns: BOOL_FALSE
+  use_inactive_lns: BOOL_FALSE
+  use_global_cheapest_insertion_path_lns: BOOL_TRUE
+  use_local_cheapest_insertion_path_lns: BOOL_TRUE
+  use_relocate_path_global_cheapest_insertion_insert_unperformed: BOOL_TRUE
+  use_global_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_local_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_global_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+  use_local_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+}
+multi_armed_bandit_compound_operator_memory_coefficient: 0.04
+multi_armed_bandit_compound_operator_exploration_coefficient: 1000000000000
+relocate_expensive_chain_num_arcs_to_consider: 4
+heuristic_expensive_chain_lns_num_arcs_to_consider: 4
+heuristic_close_nodes_lns_num_nodes: 5
+local_search_metaheuristic: AUTOMATIC
+guided_local_search_lambda_coefficient: 0.1
+use_cp: BOOL_TRUE
+use_cp_sat: BOOL_FALSE
+use_generalized_cp_sat: BOOL_FALSE
+sat_parameters {
+  num_search_workers: 1
+  linearization_level: 2
+}
+continuous_scheduling_solver: SCHEDULING_GLOP
+mixed_integer_scheduling_solver: SCHEDULING_CP_SAT
+disable_scheduling_beware_this_may_degrade_performance: false
+number_of_solutions_to_collect: 1
+solution_limit: 9223372036854775807
+time_limit {
+  seconds: 1200
+}
+lns_time_limit {
+  nanos: 100000000
+}
+log_cost_scaling_factor: 1
+
+Objective: 1008
+Route for vehicle 0:
+ 0 ->  38 ->  12 ->  35 ->  47 ->  34 ->  44 ->  39 ->  31 ->  17 ->  7 ->  22 ->  25 ->  10 ->  40 -> 0
+Distance of the route: 273m
+Load of the route: 145/200
+
+Route for vehicle 1:
+ 1 ->  37 ->  14 ->  51 ->  9 ->  6 ->  30 ->  48 ->  13 -> 1
+Distance of the route: 156m
+Load of the route: 119/200
+
+Route for vehicle 2:
+ 2 ->  4 ->  23 ->  36 ->  16 ->  11 ->  32 ->  8 ->  20 ->  21 ->  28 ->  18 ->  26 ->  29 ->  19 -> 2
+Distance of the route: 277m
+Load of the route: 193/200
+
+Route for vehicle 3:
+ 3 ->  33 ->  43 ->  41 ->  15 ->  24 ->  50 ->  27 ->  46 ->  49 ->  45 ->  42 ->  5 -> 3
+Distance of the route: 302m
+Load of the route: 200/200
+
+Maximum of the route distances: 302m
+Total route distance 1008
+first_solution_strategy: AUTOMATIC
+savings_neighbors_ratio: 1
+savings_max_memory_usage_bytes: 6000000000
+savings_arc_coefficient: 1
+cheapest_insertion_first_solution_neighbors_ratio: 1
+cheapest_insertion_first_solution_min_neighbors: 1
+cheapest_insertion_ls_operator_neighbors_ratio: 1
+cheapest_insertion_ls_operator_min_neighbors: 1
+local_cheapest_insertion_evaluate_pickup_delivery_costs_independently: true
+local_search_operators {
+  use_relocate: BOOL_TRUE
+  use_relocate_pair: BOOL_TRUE
+  use_light_relocate_pair: BOOL_TRUE
+  use_relocate_neighbors: BOOL_FALSE
+  use_relocate_subtrip: BOOL_TRUE
+  use_exchange: BOOL_TRUE
+  use_exchange_pair: BOOL_TRUE
+  use_exchange_subtrip: BOOL_TRUE
+  use_cross: BOOL_TRUE
+  use_cross_exchange: BOOL_FALSE
+  use_relocate_expensive_chain: BOOL_TRUE
+  use_two_opt: BOOL_TRUE
+  use_or_opt: BOOL_TRUE
+  use_lin_kernighan: BOOL_TRUE
+  use_tsp_opt: BOOL_FALSE
+  use_make_active: BOOL_TRUE
+  use_relocate_and_make_active: BOOL_FALSE
+  use_make_inactive: BOOL_TRUE
+  use_make_chain_inactive: BOOL_TRUE
+  use_swap_active: BOOL_TRUE
+  use_extended_swap_active: BOOL_FALSE
+  use_node_pair_swap_active: BOOL_FALSE
+  use_path_lns: BOOL_FALSE
+  use_full_path_lns: BOOL_FALSE
+  use_tsp_lns: BOOL_FALSE
+  use_inactive_lns: BOOL_FALSE
+  use_global_cheapest_insertion_path_lns: BOOL_TRUE
+  use_local_cheapest_insertion_path_lns: BOOL_TRUE
+  use_relocate_path_global_cheapest_insertion_insert_unperformed: BOOL_TRUE
+  use_global_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_local_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_global_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+  use_local_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+}
+multi_armed_bandit_compound_operator_memory_coefficient: 0.04
+multi_armed_bandit_compound_operator_exploration_coefficient: 1000000000000
+relocate_expensive_chain_num_arcs_to_consider: 4
+heuristic_expensive_chain_lns_num_arcs_to_consider: 4
+heuristic_close_nodes_lns_num_nodes: 5
+local_search_metaheuristic: AUTOMATIC
+guided_local_search_lambda_coefficient: 0.1
+use_cp: BOOL_TRUE
+use_cp_sat: BOOL_FALSE
+use_generalized_cp_sat: BOOL_FALSE
+sat_parameters {
+  num_search_workers: 1
+  linearization_level: 2
+}
+continuous_scheduling_solver: SCHEDULING_GLOP
+mixed_integer_scheduling_solver: SCHEDULING_CP_SAT
+disable_scheduling_beware_this_may_degrade_performance: false
+number_of_solutions_to_collect: 1
+solution_limit: 9223372036854775807
+time_limit {
+  seconds: 1200
+}
+lns_time_limit {
+  nanos: 100000000
+}
+log_cost_scaling_factor: 1
+
+Objective: 1007
+Route for vehicle 0:
+ 0 ->  38 ->  12 ->  45 ->  49 ->  51 ->  6 ->  9 ->  30 ->  22 ->  7 ->  17 ->  31 ->  39 ->  44 ->  34 ->  47 ->  35 ->  40 -> 0
+Distance of the route: 434m
+Load of the route: 199/200
+
+Route for vehicle 1:
+ 1 ->  13 ->  48 ->  14 ->  37 ->  10 ->  25 -> 1
+Distance of the route: 87m
+Load of the route: 106/200
+
+Route for vehicle 2:
+ 2 ->  4 ->  23 ->  36 ->  16 ->  11 ->  32 ->  8 ->  20 ->  21 ->  29 ->  19 -> 2
+Distance of the route: 210m
+Load of the route: 161/200
+
+Route for vehicle 3:
+ 3 ->  33 ->  42 ->  46 ->  27 ->  50 ->  24 ->  15 ->  41 ->  43 ->  18 ->  28 ->  26 ->  5 -> 3
+Distance of the route: 276m
+Load of the route: 191/200
+
+Maximum of the route distances: 434m
+Total route distance 1007
+first_solution_strategy: PATH_CHEAPEST_ARC
+savings_neighbors_ratio: 1
+savings_max_memory_usage_bytes: 6000000000
+savings_arc_coefficient: 1
+cheapest_insertion_first_solution_neighbors_ratio: 1
+cheapest_insertion_first_solution_min_neighbors: 1
+cheapest_insertion_ls_operator_neighbors_ratio: 1
+cheapest_insertion_ls_operator_min_neighbors: 1
+local_cheapest_insertion_evaluate_pickup_delivery_costs_independently: true
+local_search_operators {
+  use_relocate: BOOL_TRUE
+  use_relocate_pair: BOOL_TRUE
+  use_light_relocate_pair: BOOL_TRUE
+  use_relocate_neighbors: BOOL_FALSE
+  use_relocate_subtrip: BOOL_TRUE
+  use_exchange: BOOL_TRUE
+  use_exchange_pair: BOOL_TRUE
+  use_exchange_subtrip: BOOL_TRUE
+  use_cross: BOOL_TRUE
+  use_cross_exchange: BOOL_FALSE
+  use_relocate_expensive_chain: BOOL_TRUE
+  use_two_opt: BOOL_TRUE
+  use_or_opt: BOOL_TRUE
+  use_lin_kernighan: BOOL_TRUE
+  use_tsp_opt: BOOL_FALSE
+  use_make_active: BOOL_TRUE
+  use_relocate_and_make_active: BOOL_FALSE
+  use_make_inactive: BOOL_TRUE
+  use_make_chain_inactive: BOOL_TRUE
+  use_swap_active: BOOL_TRUE
+  use_extended_swap_active: BOOL_FALSE
+  use_node_pair_swap_active: BOOL_FALSE
+  use_path_lns: BOOL_FALSE
+  use_full_path_lns: BOOL_FALSE
+  use_tsp_lns: BOOL_FALSE
+  use_inactive_lns: BOOL_FALSE
+  use_global_cheapest_insertion_path_lns: BOOL_TRUE
+  use_local_cheapest_insertion_path_lns: BOOL_TRUE
+  use_relocate_path_global_cheapest_insertion_insert_unperformed: BOOL_TRUE
+  use_global_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_local_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_global_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+  use_local_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+}
+multi_armed_bandit_compound_operator_memory_coefficient: 0.04
+multi_armed_bandit_compound_operator_exploration_coefficient: 1000000000000
+relocate_expensive_chain_num_arcs_to_consider: 4
+heuristic_expensive_chain_lns_num_arcs_to_consider: 4
+heuristic_close_nodes_lns_num_nodes: 5
+local_search_metaheuristic: AUTOMATIC
+guided_local_search_lambda_coefficient: 0.1
+use_cp: BOOL_TRUE
+use_cp_sat: BOOL_FALSE
+use_generalized_cp_sat: BOOL_FALSE
+sat_parameters {
+  num_search_workers: 1
+  linearization_level: 2
+}
+continuous_scheduling_solver: SCHEDULING_GLOP
+mixed_integer_scheduling_solver: SCHEDULING_CP_SAT
+disable_scheduling_beware_this_may_degrade_performance: false
+number_of_solutions_to_collect: 1
+solution_limit: 9223372036854775807
+time_limit {
+  seconds: 1200
+}
+lns_time_limit {
+  nanos: 100000000
+}
+log_cost_scaling_factor: 1
+
+Objective: 1979
+Route for vehicle 0:
+ 0 ->  84 ->  22 ->  77 ->  95 ->  23 ->  19 ->  67 ->  20 ->  72 ->  12 ->  65 ->  76 -> 0
+Distance of the route: 250m
+Load of the route: 195/195
+
+Route for vehicle 1:
+ 1 ->  5 ->  13 ->  51 ->  9 ->  10 ->  8 ->  42 ->  30 ->  71 ->  41 ->  96 ->  58 ->  47 ->  40 ->  97 -> 1
+Distance of the route: 372m
+Load of the route: 189/195
+
+Route for vehicle 2:
+ 2 ->  45 ->  25 ->  88 -> 2
+Distance of the route: 76m
+Load of the route: 60/195
+
+Route for vehicle 3:
+ 3 ->  92 ->  55 ->  64 ->  48 ->  82 ->  14 -> 3
+Distance of the route: 105m
+Load of the route: 80/195
+
+Route for vehicle 4:
+ 0 ->  61 ->  31 ->  94 ->  49 ->  18 ->  26 ->  33 ->  86 ->  78 ->  43 ->  52 ->  37 ->  7 ->  46 ->  44 ->  73 ->  62 -> 0
+Distance of the route: 381m
+Load of the route: 190/195
+
+Route for vehicle 5:
+ 1 ->  81 ->  91 ->  36 ->  4 ->  50 ->  68 ->  90 ->  75 ->  28 ->  63 ->  35 -> 1
+Distance of the route: 195m
+Load of the route: 171/195
+
+Route for vehicle 6:
+ 2 ->  99 ->  70 ->  17 ->  21 ->  83 ->  27 ->  54 ->  53 ->  79 ->  6 ->  15 ->  56 ->  74 ->  39 ->  69 ->  59 -> 2
+Distance of the route: 248m
+Load of the route: 140/195
+
+Route for vehicle 7:
+ 3 ->  24 ->  29 ->  85 ->  38 ->  34 ->  93 ->  80 ->  66 ->  16 ->  11 ->  89 ->  87 ->  98 ->  32 ->  60 ->  57 -> 3
+Distance of the route: 352m
+Load of the route: 195/195
+
+Maximum of the route distances: 381m
+Total route distance 1979
+first_solution_strategy: PATH_MOST_CONSTRAINED_ARC
+savings_neighbors_ratio: 1
+savings_max_memory_usage_bytes: 6000000000
+savings_arc_coefficient: 1
+cheapest_insertion_first_solution_neighbors_ratio: 1
+cheapest_insertion_first_solution_min_neighbors: 1
+cheapest_insertion_ls_operator_neighbors_ratio: 1
+cheapest_insertion_ls_operator_min_neighbors: 1
+local_cheapest_insertion_evaluate_pickup_delivery_costs_independently: true
+local_search_operators {
+  use_relocate: BOOL_TRUE
+  use_relocate_pair: BOOL_TRUE
+  use_light_relocate_pair: BOOL_TRUE
+  use_relocate_neighbors: BOOL_FALSE
+  use_relocate_subtrip: BOOL_TRUE
+  use_exchange: BOOL_TRUE
+  use_exchange_pair: BOOL_TRUE
+  use_exchange_subtrip: BOOL_TRUE
+  use_cross: BOOL_TRUE
+  use_cross_exchange: BOOL_FALSE
+  use_relocate_expensive_chain: BOOL_TRUE
+  use_two_opt: BOOL_TRUE
+  use_or_opt: BOOL_TRUE
+  use_lin_kernighan: BOOL_TRUE
+  use_tsp_opt: BOOL_FALSE
+  use_make_active: BOOL_TRUE
+  use_relocate_and_make_active: BOOL_FALSE
+  use_make_inactive: BOOL_TRUE
+  use_make_chain_inactive: BOOL_TRUE
+  use_swap_active: BOOL_TRUE
+  use_extended_swap_active: BOOL_FALSE
+  use_node_pair_swap_active: BOOL_FALSE
+  use_path_lns: BOOL_FALSE
+  use_full_path_lns: BOOL_FALSE
+  use_tsp_lns: BOOL_FALSE
+  use_inactive_lns: BOOL_FALSE
+  use_global_cheapest_insertion_path_lns: BOOL_TRUE
+  use_local_cheapest_insertion_path_lns: BOOL_TRUE
+  use_relocate_path_global_cheapest_insertion_insert_unperformed: BOOL_TRUE
+  use_global_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_local_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_global_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+  use_local_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+}
+multi_armed_bandit_compound_operator_memory_coefficient: 0.04
+multi_armed_bandit_compound_operator_exploration_coefficient: 1000000000000
+relocate_expensive_chain_num_arcs_to_consider: 4
+heuristic_expensive_chain_lns_num_arcs_to_consider: 4
+heuristic_close_nodes_lns_num_nodes: 5
+local_search_metaheuristic: AUTOMATIC
+guided_local_search_lambda_coefficient: 0.1
+use_cp: BOOL_TRUE
+use_cp_sat: BOOL_FALSE
+use_generalized_cp_sat: BOOL_FALSE
+sat_parameters {
+  num_search_workers: 1
+  linearization_level: 2
+}
+continuous_scheduling_solver: SCHEDULING_GLOP
+mixed_integer_scheduling_solver: SCHEDULING_CP_SAT
+disable_scheduling_beware_this_may_degrade_performance: false
+number_of_solutions_to_collect: 1
+solution_limit: 9223372036854775807
+time_limit {
+  seconds: 1200
+}
+lns_time_limit {
+  nanos: 100000000
+}
+log_cost_scaling_factor: 1
+
+Objective: 2021
+Route for vehicle 0:
+ 0 ->  47 ->  19 ->  67 ->  42 ->  30 ->  71 ->  41 ->  96 ->  95 ->  23 ->  58 ->  77 ->  22 ->  89 -> 0
+Distance of the route: 327m
+Load of the route: 193/195
+
+Route for vehicle 1:
+ 1 ->  45 ->  88 ->  25 ->  4 ->  50 ->  36 ->  91 ->  81 -> 1
+Distance of the route: 154m
+Load of the route: 117/195
+
+Route for vehicle 2:
+ 2 -> 2
+Distance of the route: 0m
+Load of the route: 0/195
+
+Route for vehicle 3:
+ 3 ->  92 ->  55 ->  64 ->  46 ->  11 ->  16 ->  66 ->  80 ->  93 ->  7 ->  37 ->  52 ->  43 ->  85 ->  38 ->  34 ->  48 -> 3
+Distance of the route: 438m
+Load of the route: 195/195
+
+Route for vehicle 4:
+ 0 ->  62 ->  61 ->  82 ->  29 ->  94 ->  26 ->  33 ->  86 ->  78 ->  56 ->  5 ->  13 ->  10 ->  8 ->  20 ->  76 -> 0
+Distance of the route: 370m
+Load of the route: 188/195
+
+Route for vehicle 5:
+ 1 ->  97 ->  12 ->  72 ->  40 ->  65 ->  84 ->  87 ->  44 ->  73 ->  28 ->  90 ->  68 ->  35 -> 1
+Distance of the route: 265m
+Load of the route: 195/195
+
+Route for vehicle 6:
+ 2 ->  59 ->  69 ->  39 ->  74 ->  15 ->  6 ->  79 ->  53 ->  54 ->  9 ->  51 ->  27 ->  83 ->  21 ->  17 ->  70 ->  99 -> 2
+Distance of the route: 287m
+Load of the route: 162/195
+
+Route for vehicle 7:
+ 3 ->  31 ->  14 ->  24 ->  49 ->  18 ->  60 ->  98 ->  63 ->  75 ->  32 ->  57 -> 3
+Distance of the route: 180m
+Load of the route: 170/195
+
+Maximum of the route distances: 438m
+Total route distance 2021
+first_solution_strategy: LOCAL_CHEAPEST_INSERTION
+savings_neighbors_ratio: 1
+savings_max_memory_usage_bytes: 6000000000
+savings_arc_coefficient: 1
+cheapest_insertion_first_solution_neighbors_ratio: 1
+cheapest_insertion_first_solution_min_neighbors: 1
+cheapest_insertion_ls_operator_neighbors_ratio: 1
+cheapest_insertion_ls_operator_min_neighbors: 1
+local_cheapest_insertion_evaluate_pickup_delivery_costs_independently: true
+local_search_operators {
+  use_relocate: BOOL_TRUE
+  use_relocate_pair: BOOL_TRUE
+  use_light_relocate_pair: BOOL_TRUE
+  use_relocate_neighbors: BOOL_FALSE
+  use_relocate_subtrip: BOOL_TRUE
+  use_exchange: BOOL_TRUE
+  use_exchange_pair: BOOL_TRUE
+  use_exchange_subtrip: BOOL_TRUE
+  use_cross: BOOL_TRUE
+  use_cross_exchange: BOOL_FALSE
+  use_relocate_expensive_chain: BOOL_TRUE
+  use_two_opt: BOOL_TRUE
+  use_or_opt: BOOL_TRUE
+  use_lin_kernighan: BOOL_TRUE
+  use_tsp_opt: BOOL_FALSE
+  use_make_active: BOOL_TRUE
+  use_relocate_and_make_active: BOOL_FALSE
+  use_make_inactive: BOOL_TRUE
+  use_make_chain_inactive: BOOL_TRUE
+  use_swap_active: BOOL_TRUE
+  use_extended_swap_active: BOOL_FALSE
+  use_node_pair_swap_active: BOOL_FALSE
+  use_path_lns: BOOL_FALSE
+  use_full_path_lns: BOOL_FALSE
+  use_tsp_lns: BOOL_FALSE
+  use_inactive_lns: BOOL_FALSE
+  use_global_cheapest_insertion_path_lns: BOOL_TRUE
+  use_local_cheapest_insertion_path_lns: BOOL_TRUE
+  use_relocate_path_global_cheapest_insertion_insert_unperformed: BOOL_TRUE
+  use_global_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_local_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_global_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+  use_local_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+}
+multi_armed_bandit_compound_operator_memory_coefficient: 0.04
+multi_armed_bandit_compound_operator_exploration_coefficient: 1000000000000
+relocate_expensive_chain_num_arcs_to_consider: 4
+heuristic_expensive_chain_lns_num_arcs_to_consider: 4
+heuristic_close_nodes_lns_num_nodes: 5
+local_search_metaheuristic: AUTOMATIC
+guided_local_search_lambda_coefficient: 0.1
+use_cp: BOOL_TRUE
+use_cp_sat: BOOL_FALSE
+use_generalized_cp_sat: BOOL_FALSE
+sat_parameters {
+  num_search_workers: 1
+  linearization_level: 2
+}
+continuous_scheduling_solver: SCHEDULING_GLOP
+mixed_integer_scheduling_solver: SCHEDULING_CP_SAT
+disable_scheduling_beware_this_may_degrade_performance: false
+number_of_solutions_to_collect: 1
+solution_limit: 9223372036854775807
+time_limit {
+  seconds: 1200
+}
+lns_time_limit {
+  nanos: 100000000
+}
+log_cost_scaling_factor: 1
+
+Objective: 2024
+Route for vehicle 0:
+ 0 ->  77 ->  95 ->  23 ->  19 ->  67 ->  10 ->  8 ->  42 ->  30 ->  71 ->  41 ->  11 ->  16 ->  66 ->  46 -> 0
+Distance of the route: 475m
+Load of the route: 188/195
+
+Route for vehicle 1:
+ 1 ->  97 ->  28 ->  62 ->  73 ->  92 ->  48 ->  29 ->  24 ->  60 ->  98 ->  68 ->  50 ->  4 ->  36 ->  91 ->  81 -> 1
+Distance of the route: 297m
+Load of the route: 194/195
+
+Route for vehicle 2:
+ 2 ->  13 ->  51 ->  9 ->  54 ->  53 ->  79 ->  6 ->  15 ->  56 ->  74 ->  39 ->  69 ->  88 ->  25 ->  45 -> 2
+Distance of the route: 313m
+Load of the route: 193/195
+
+Route for vehicle 3:
+ 3 ->  34 ->  93 ->  80 ->  7 ->  37 ->  52 ->  43 ->  78 ->  86 ->  33 ->  26 ->  18 ->  49 ->  94 ->  57 ->  31 ->  14 -> 3
+Distance of the route: 352m
+Load of the route: 194/195
+
+Route for vehicle 4:
+ 0 ->  75 ->  63 ->  35 ->  12 ->  72 ->  20 ->  40 ->  47 ->  58 ->  96 ->  22 -> 0
+Distance of the route: 223m
+Load of the route: 192/195
+
+Route for vehicle 5:
+ 1 -> 1
+Distance of the route: 0m
+Load of the route: 0/195
+
+Route for vehicle 6:
+ 2 ->  59 ->  99 ->  70 ->  17 ->  21 ->  27 ->  83 ->  5 -> 2
+Distance of the route: 95m
+Load of the route: 70/195
+
+Route for vehicle 7:
+ 3 ->  82 ->  85 ->  38 ->  64 ->  55 ->  44 ->  87 ->  89 ->  84 ->  65 ->  76 ->  90 ->  32 ->  61 -> 3
+Distance of the route: 269m
+Load of the route: 189/195
+
+Maximum of the route distances: 475m
+Total route distance 2024
+first_solution_strategy: BEST_INSERTION
+savings_neighbors_ratio: 1
+savings_max_memory_usage_bytes: 6000000000
+savings_arc_coefficient: 1
+cheapest_insertion_first_solution_neighbors_ratio: 1
+cheapest_insertion_first_solution_min_neighbors: 1
+cheapest_insertion_ls_operator_neighbors_ratio: 1
+cheapest_insertion_ls_operator_min_neighbors: 1
+local_cheapest_insertion_evaluate_pickup_delivery_costs_independently: true
+local_search_operators {
+  use_relocate: BOOL_TRUE
+  use_relocate_pair: BOOL_TRUE
+  use_light_relocate_pair: BOOL_TRUE
+  use_relocate_neighbors: BOOL_FALSE
+  use_relocate_subtrip: BOOL_TRUE
+  use_exchange: BOOL_TRUE
+  use_exchange_pair: BOOL_TRUE
+  use_exchange_subtrip: BOOL_TRUE
+  use_cross: BOOL_TRUE
+  use_cross_exchange: BOOL_FALSE
+  use_relocate_expensive_chain: BOOL_TRUE
+  use_two_opt: BOOL_TRUE
+  use_or_opt: BOOL_TRUE
+  use_lin_kernighan: BOOL_TRUE
+  use_tsp_opt: BOOL_FALSE
+  use_make_active: BOOL_TRUE
+  use_relocate_and_make_active: BOOL_FALSE
+  use_make_inactive: BOOL_TRUE
+  use_make_chain_inactive: BOOL_TRUE
+  use_swap_active: BOOL_TRUE
+  use_extended_swap_active: BOOL_FALSE
+  use_node_pair_swap_active: BOOL_FALSE
+  use_path_lns: BOOL_FALSE
+  use_full_path_lns: BOOL_FALSE
+  use_tsp_lns: BOOL_FALSE
+  use_inactive_lns: BOOL_FALSE
+  use_global_cheapest_insertion_path_lns: BOOL_TRUE
+  use_local_cheapest_insertion_path_lns: BOOL_TRUE
+  use_relocate_path_global_cheapest_insertion_insert_unperformed: BOOL_TRUE
+  use_global_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_local_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_global_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+  use_local_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+}
+multi_armed_bandit_compound_operator_memory_coefficient: 0.04
+multi_armed_bandit_compound_operator_exploration_coefficient: 1000000000000
+relocate_expensive_chain_num_arcs_to_consider: 4
+heuristic_expensive_chain_lns_num_arcs_to_consider: 4
+heuristic_close_nodes_lns_num_nodes: 5
+local_search_metaheuristic: AUTOMATIC
+guided_local_search_lambda_coefficient: 0.1
+use_cp: BOOL_TRUE
+use_cp_sat: BOOL_FALSE
+use_generalized_cp_sat: BOOL_FALSE
+sat_parameters {
+  num_search_workers: 1
+  linearization_level: 2
+}
+continuous_scheduling_solver: SCHEDULING_GLOP
+mixed_integer_scheduling_solver: SCHEDULING_CP_SAT
+disable_scheduling_beware_this_may_degrade_performance: false
+number_of_solutions_to_collect: 1
+solution_limit: 9223372036854775807
+time_limit {
+  seconds: 1200
+}
+lns_time_limit {
+  nanos: 100000000
+}
+log_cost_scaling_factor: 1
+
+NO SOLUTION
+first_solution_strategy: GLOBAL_CHEAPEST_ARC
+savings_neighbors_ratio: 1
+savings_max_memory_usage_bytes: 6000000000
+savings_arc_coefficient: 1
+cheapest_insertion_first_solution_neighbors_ratio: 1
+cheapest_insertion_first_solution_min_neighbors: 1
+cheapest_insertion_ls_operator_neighbors_ratio: 1
+cheapest_insertion_ls_operator_min_neighbors: 1
+local_cheapest_insertion_evaluate_pickup_delivery_costs_independently: true
+local_search_operators {
+  use_relocate: BOOL_TRUE
+  use_relocate_pair: BOOL_TRUE
+  use_light_relocate_pair: BOOL_TRUE
+  use_relocate_neighbors: BOOL_FALSE
+  use_relocate_subtrip: BOOL_TRUE
+  use_exchange: BOOL_TRUE
+  use_exchange_pair: BOOL_TRUE
+  use_exchange_subtrip: BOOL_TRUE
+  use_cross: BOOL_TRUE
+  use_cross_exchange: BOOL_FALSE
+  use_relocate_expensive_chain: BOOL_TRUE
+  use_two_opt: BOOL_TRUE
+  use_or_opt: BOOL_TRUE
+  use_lin_kernighan: BOOL_TRUE
+  use_tsp_opt: BOOL_FALSE
+  use_make_active: BOOL_TRUE
+  use_relocate_and_make_active: BOOL_FALSE
+  use_make_inactive: BOOL_TRUE
+  use_make_chain_inactive: BOOL_TRUE
+  use_swap_active: BOOL_TRUE
+  use_extended_swap_active: BOOL_FALSE
+  use_node_pair_swap_active: BOOL_FALSE
+  use_path_lns: BOOL_FALSE
+  use_full_path_lns: BOOL_FALSE
+  use_tsp_lns: BOOL_FALSE
+  use_inactive_lns: BOOL_FALSE
+  use_global_cheapest_insertion_path_lns: BOOL_TRUE
+  use_local_cheapest_insertion_path_lns: BOOL_TRUE
+  use_relocate_path_global_cheapest_insertion_insert_unperformed: BOOL_TRUE
+  use_global_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_local_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_global_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+  use_local_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+}
+multi_armed_bandit_compound_operator_memory_coefficient: 0.04
+multi_armed_bandit_compound_operator_exploration_coefficient: 1000000000000
+relocate_expensive_chain_num_arcs_to_consider: 4
+heuristic_expensive_chain_lns_num_arcs_to_consider: 4
+heuristic_close_nodes_lns_num_nodes: 5
+local_search_metaheuristic: AUTOMATIC
+guided_local_search_lambda_coefficient: 0.1
+use_cp: BOOL_TRUE
+use_cp_sat: BOOL_FALSE
+use_generalized_cp_sat: BOOL_FALSE
+sat_parameters {
+  num_search_workers: 1
+  linearization_level: 2
+}
+continuous_scheduling_solver: SCHEDULING_GLOP
+mixed_integer_scheduling_solver: SCHEDULING_CP_SAT
+disable_scheduling_beware_this_may_degrade_performance: false
+number_of_solutions_to_collect: 1
+solution_limit: 9223372036854775807
+time_limit {
+  seconds: 1200
+}
+lns_time_limit {
+  nanos: 100000000
+}
+log_cost_scaling_factor: 1
+
+Objective: 1981
+Route for vehicle 0:
+ 0 ->  84 ->  65 ->  47 ->  19 ->  67 ->  42 ->  8 ->  10 ->  20 ->  40 ->  76 -> 0
+Distance of the route: 288m
+Load of the route: 163/195
+
+Route for vehicle 1:
+ 1 -> 1
+Distance of the route: 0m
+Load of the route: 0/195
+
+Route for vehicle 2:
+ 2 ->  25 ->  45 ->  99 ->  70 ->  21 ->  17 ->  79 ->  53 ->  54 ->  27 ->  83 ->  9 ->  51 ->  13 ->  5 -> 2
+Distance of the route: 259m
+Load of the route: 193/195
+
+Route for vehicle 3:
+ 3 ->  92 ->  61 ->  28 ->  63 ->  75 ->  98 ->  32 ->  60 ->  57 -> 3
+Distance of the route: 177m
+Load of the route: 144/195
+
+Route for vehicle 4:
+ 0 ->  87 ->  89 ->  22 ->  77 ->  58 ->  23 ->  95 ->  96 ->  41 ->  71 ->  30 ->  11 ->  16 ->  66 ->  46 ->  44 ->  73 ->  62 -> 0
+Distance of the route: 414m
+Load of the route: 185/195
+
+Route for vehicle 5:
+ 1 ->  81 ->  91 ->  36 ->  4 ->  50 ->  68 ->  90 ->  35 ->  12 ->  72 ->  97 -> 1
+Distance of the route: 201m
+Load of the route: 165/195
+
+Route for vehicle 6:
+ 2 ->  59 ->  69 ->  39 ->  74 ->  15 ->  6 ->  56 ->  86 ->  78 ->  43 ->  52 ->  37 ->  85 ->  38 ->  34 ->  7 ->  80 ->  93 ->  31 ->  88 -> 2
+Distance of the route: 457m
+Load of the route: 192/195
+
+Route for vehicle 7:
+ 3 ->  14 ->  24 ->  49 ->  18 ->  33 ->  26 ->  94 ->  29 ->  82 ->  48 ->  64 ->  55 -> 3
+Distance of the route: 185m
+Load of the route: 178/195
+
+Maximum of the route distances: 457m
+Total route distance 1981
+first_solution_strategy: AUTOMATIC
+savings_neighbors_ratio: 1
+savings_max_memory_usage_bytes: 6000000000
+savings_arc_coefficient: 1
+cheapest_insertion_first_solution_neighbors_ratio: 1
+cheapest_insertion_first_solution_min_neighbors: 1
+cheapest_insertion_ls_operator_neighbors_ratio: 1
+cheapest_insertion_ls_operator_min_neighbors: 1
+local_cheapest_insertion_evaluate_pickup_delivery_costs_independently: true
+local_search_operators {
+  use_relocate: BOOL_TRUE
+  use_relocate_pair: BOOL_TRUE
+  use_light_relocate_pair: BOOL_TRUE
+  use_relocate_neighbors: BOOL_FALSE
+  use_relocate_subtrip: BOOL_TRUE
+  use_exchange: BOOL_TRUE
+  use_exchange_pair: BOOL_TRUE
+  use_exchange_subtrip: BOOL_TRUE
+  use_cross: BOOL_TRUE
+  use_cross_exchange: BOOL_FALSE
+  use_relocate_expensive_chain: BOOL_TRUE
+  use_two_opt: BOOL_TRUE
+  use_or_opt: BOOL_TRUE
+  use_lin_kernighan: BOOL_TRUE
+  use_tsp_opt: BOOL_FALSE
+  use_make_active: BOOL_TRUE
+  use_relocate_and_make_active: BOOL_FALSE
+  use_make_inactive: BOOL_TRUE
+  use_make_chain_inactive: BOOL_TRUE
+  use_swap_active: BOOL_TRUE
+  use_extended_swap_active: BOOL_FALSE
+  use_node_pair_swap_active: BOOL_FALSE
+  use_path_lns: BOOL_FALSE
+  use_full_path_lns: BOOL_FALSE
+  use_tsp_lns: BOOL_FALSE
+  use_inactive_lns: BOOL_FALSE
+  use_global_cheapest_insertion_path_lns: BOOL_TRUE
+  use_local_cheapest_insertion_path_lns: BOOL_TRUE
+  use_relocate_path_global_cheapest_insertion_insert_unperformed: BOOL_TRUE
+  use_global_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_local_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_global_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+  use_local_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+}
+multi_armed_bandit_compound_operator_memory_coefficient: 0.04
+multi_armed_bandit_compound_operator_exploration_coefficient: 1000000000000
+relocate_expensive_chain_num_arcs_to_consider: 4
+heuristic_expensive_chain_lns_num_arcs_to_consider: 4
+heuristic_close_nodes_lns_num_nodes: 5
+local_search_metaheuristic: AUTOMATIC
+guided_local_search_lambda_coefficient: 0.1
+use_cp: BOOL_TRUE
+use_cp_sat: BOOL_FALSE
+use_generalized_cp_sat: BOOL_FALSE
+sat_parameters {
+  num_search_workers: 1
+  linearization_level: 2
+}
+continuous_scheduling_solver: SCHEDULING_GLOP
+mixed_integer_scheduling_solver: SCHEDULING_CP_SAT
+disable_scheduling_beware_this_may_degrade_performance: false
+number_of_solutions_to_collect: 1
+solution_limit: 9223372036854775807
+time_limit {
+  seconds: 1200
+}
+lns_time_limit {
+  nanos: 100000000
+}
+log_cost_scaling_factor: 1
+
+Objective: 1979
+Route for vehicle 0:
+ 0 ->  84 ->  22 ->  77 ->  95 ->  23 ->  19 ->  67 ->  20 ->  72 ->  12 ->  65 ->  76 -> 0
+Distance of the route: 250m
+Load of the route: 195/195
+
+Route for vehicle 1:
+ 1 ->  5 ->  13 ->  51 ->  9 ->  10 ->  8 ->  42 ->  30 ->  71 ->  41 ->  96 ->  58 ->  47 ->  40 ->  97 -> 1
+Distance of the route: 372m
+Load of the route: 189/195
+
+Route for vehicle 2:
+ 2 ->  45 ->  25 ->  88 -> 2
+Distance of the route: 76m
+Load of the route: 60/195
+
+Route for vehicle 3:
+ 3 ->  92 ->  55 ->  64 ->  48 ->  82 ->  14 -> 3
+Distance of the route: 105m
+Load of the route: 80/195
+
+Route for vehicle 4:
+ 0 ->  61 ->  31 ->  94 ->  49 ->  18 ->  26 ->  33 ->  86 ->  78 ->  43 ->  52 ->  37 ->  7 ->  46 ->  44 ->  73 ->  62 -> 0
+Distance of the route: 381m
+Load of the route: 190/195
+
+Route for vehicle 5:
+ 1 ->  81 ->  91 ->  36 ->  4 ->  50 ->  68 ->  90 ->  75 ->  28 ->  63 ->  35 -> 1
+Distance of the route: 195m
+Load of the route: 171/195
+
+Route for vehicle 6:
+ 2 ->  99 ->  70 ->  17 ->  21 ->  83 ->  27 ->  54 ->  53 ->  79 ->  6 ->  15 ->  56 ->  74 ->  39 ->  69 ->  59 -> 2
+Distance of the route: 248m
+Load of the route: 140/195
+
+Route for vehicle 7:
+ 3 ->  24 ->  29 ->  85 ->  38 ->  34 ->  93 ->  80 ->  66 ->  16 ->  11 ->  89 ->  87 ->  98 ->  32 ->  60 ->  57 -> 3
+Distance of the route: 352m
+Load of the route: 195/195
+
+Maximum of the route distances: 381m
+Total route distance 1979
+first_solution_strategy: PATH_CHEAPEST_ARC
+savings_neighbors_ratio: 1
+savings_max_memory_usage_bytes: 6000000000
+savings_arc_coefficient: 1
+cheapest_insertion_first_solution_neighbors_ratio: 1
+cheapest_insertion_first_solution_min_neighbors: 1
+cheapest_insertion_ls_operator_neighbors_ratio: 1
+cheapest_insertion_ls_operator_min_neighbors: 1
+local_cheapest_insertion_evaluate_pickup_delivery_costs_independently: true
+local_search_operators {
+  use_relocate: BOOL_TRUE
+  use_relocate_pair: BOOL_TRUE
+  use_light_relocate_pair: BOOL_TRUE
+  use_relocate_neighbors: BOOL_FALSE
+  use_relocate_subtrip: BOOL_TRUE
+  use_exchange: BOOL_TRUE
+  use_exchange_pair: BOOL_TRUE
+  use_exchange_subtrip: BOOL_TRUE
+  use_cross: BOOL_TRUE
+  use_cross_exchange: BOOL_FALSE
+  use_relocate_expensive_chain: BOOL_TRUE
+  use_two_opt: BOOL_TRUE
+  use_or_opt: BOOL_TRUE
+  use_lin_kernighan: BOOL_TRUE
+  use_tsp_opt: BOOL_FALSE
+  use_make_active: BOOL_TRUE
+  use_relocate_and_make_active: BOOL_FALSE
+  use_make_inactive: BOOL_TRUE
+  use_make_chain_inactive: BOOL_TRUE
+  use_swap_active: BOOL_TRUE
+  use_extended_swap_active: BOOL_FALSE
+  use_node_pair_swap_active: BOOL_FALSE
+  use_path_lns: BOOL_FALSE
+  use_full_path_lns: BOOL_FALSE
+  use_tsp_lns: BOOL_FALSE
+  use_inactive_lns: BOOL_FALSE
+  use_global_cheapest_insertion_path_lns: BOOL_TRUE
+  use_local_cheapest_insertion_path_lns: BOOL_TRUE
+  use_relocate_path_global_cheapest_insertion_insert_unperformed: BOOL_TRUE
+  use_global_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_local_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_global_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+  use_local_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+}
+multi_armed_bandit_compound_operator_memory_coefficient: 0.04
+multi_armed_bandit_compound_operator_exploration_coefficient: 1000000000000
+relocate_expensive_chain_num_arcs_to_consider: 4
+heuristic_expensive_chain_lns_num_arcs_to_consider: 4
+heuristic_close_nodes_lns_num_nodes: 5
+local_search_metaheuristic: AUTOMATIC
+guided_local_search_lambda_coefficient: 0.1
+use_cp: BOOL_TRUE
+use_cp_sat: BOOL_FALSE
+use_generalized_cp_sat: BOOL_FALSE
+sat_parameters {
+  num_search_workers: 1
+  linearization_level: 2
+}
+continuous_scheduling_solver: SCHEDULING_GLOP
+mixed_integer_scheduling_solver: SCHEDULING_CP_SAT
+disable_scheduling_beware_this_may_degrade_performance: false
+number_of_solutions_to_collect: 1
+solution_limit: 9223372036854775807
+time_limit {
+  seconds: 1200
+}
+lns_time_limit {
+  nanos: 100000000
+}
+log_cost_scaling_factor: 1
+
+Objective: 2805
+Route for vehicle 0:
+ 0 ->  112 ->  110 ->  8 ->  38 ->  14 ->  74 ->  98 ->  4 ->  16 ->  113 ->  122 ->  135 ->  142 ->  65 -> 0
+Distance of the route: 305m
+Load of the route: 188/190
+
+Route for vehicle 1:
+ 1 ->  9 ->  7 ->  78 ->  70 ->  88 ->  60 ->  39 ->  64 ->  114 ->  37 ->  118 ->  86 ->  128 ->  59 ->  11 ->  120 -> 1
+Distance of the route: 335m
+Load of the route: 181/190
+
+Route for vehicle 2:
+ 2 ->  133 ->  102 ->  147 ->  121 ->  45 ->  41 ->  23 ->  116 ->  139 ->  63 ->  50 ->  143 ->  92 ->  12 ->  134 -> 2
+Distance of the route: 363m
+Load of the route: 178/190
+
+Route for vehicle 3:
+ 3 ->  24 ->  69 ->  56 ->  93 ->  10 ->  137 ->  80 ->  33 ->  79 ->  119 ->  52 ->  101 ->  58 ->  57 ->  123 ->  129 ->  131 -> 3
+Distance of the route: 399m
+Load of the route: 182/190
+
+Route for vehicle 4:
+ 0 ->  94 ->  48 ->  90 ->  132 ->  136 ->  76 ->  17 ->  91 ->  55 ->  6 ->  83 ->  20 ->  29 ->  42 -> 0
+Distance of the route: 190m
+Load of the route: 188/190
+
+Route for vehicle 5:
+ 1 ->  40 ->  54 ->  49 ->  111 ->  81 ->  27 ->  73 ->  82 ->  22 ->  144 ->  77 ->  53 ->  75 ->  103 ->  104 ->  108 ->  138 -> 1
+Distance of the route: 293m
+Load of the route: 180/190
+
+Route for vehicle 6:
+ 2 ->  26 ->  44 ->  31 ->  15 ->  115 ->  13 ->  130 ->  124 ->  43 ->  72 ->  30 ->  117 ->  106 ->  34 ->  47 ->  127 -> 2
+Distance of the route: 298m
+Load of the route: 189/190
+
+Route for vehicle 7:
+ 3 ->  95 ->  66 ->  146 ->  18 ->  87 ->  109 ->  141 ->  99 ->  32 ->  85 ->  62 ->  96 ->  36 ->  68 ->  89 -> 3
+Distance of the route: 291m
+Load of the route: 176/190
+
+Route for vehicle 8:
+ 0 -> 0
+Distance of the route: 0m
+Load of the route: 0/190
+
+Route for vehicle 9:
+ 1 -> 1
+Distance of the route: 0m
+Load of the route: 0/190
+
+Route for vehicle 10:
+ 2 ->  5 ->  145 ->  140 ->  67 ->  100 ->  51 ->  105 ->  97 ->  35 ->  84 ->  125 -> 2
+Distance of the route: 206m
+Load of the route: 185/190
+
+Route for vehicle 11:
+ 3 ->  46 ->  107 ->  25 ->  61 ->  71 ->  28 ->  126 ->  21 ->  19 -> 3
+Distance of the route: 125m
+Load of the route: 141/190
+
+Maximum of the route distances: 399m
+Total route distance 2805
+first_solution_strategy: PATH_MOST_CONSTRAINED_ARC
+savings_neighbors_ratio: 1
+savings_max_memory_usage_bytes: 6000000000
+savings_arc_coefficient: 1
+cheapest_insertion_first_solution_neighbors_ratio: 1
+cheapest_insertion_first_solution_min_neighbors: 1
+cheapest_insertion_ls_operator_neighbors_ratio: 1
+cheapest_insertion_ls_operator_min_neighbors: 1
+local_cheapest_insertion_evaluate_pickup_delivery_costs_independently: true
+local_search_operators {
+  use_relocate: BOOL_TRUE
+  use_relocate_pair: BOOL_TRUE
+  use_light_relocate_pair: BOOL_TRUE
+  use_relocate_neighbors: BOOL_FALSE
+  use_relocate_subtrip: BOOL_TRUE
+  use_exchange: BOOL_TRUE
+  use_exchange_pair: BOOL_TRUE
+  use_exchange_subtrip: BOOL_TRUE
+  use_cross: BOOL_TRUE
+  use_cross_exchange: BOOL_FALSE
+  use_relocate_expensive_chain: BOOL_TRUE
+  use_two_opt: BOOL_TRUE
+  use_or_opt: BOOL_TRUE
+  use_lin_kernighan: BOOL_TRUE
+  use_tsp_opt: BOOL_FALSE
+  use_make_active: BOOL_TRUE
+  use_relocate_and_make_active: BOOL_FALSE
+  use_make_inactive: BOOL_TRUE
+  use_make_chain_inactive: BOOL_TRUE
+  use_swap_active: BOOL_TRUE
+  use_extended_swap_active: BOOL_FALSE
+  use_node_pair_swap_active: BOOL_FALSE
+  use_path_lns: BOOL_FALSE
+  use_full_path_lns: BOOL_FALSE
+  use_tsp_lns: BOOL_FALSE
+  use_inactive_lns: BOOL_FALSE
+  use_global_cheapest_insertion_path_lns: BOOL_TRUE
+  use_local_cheapest_insertion_path_lns: BOOL_TRUE
+  use_relocate_path_global_cheapest_insertion_insert_unperformed: BOOL_TRUE
+  use_global_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_local_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_global_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+  use_local_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+}
+multi_armed_bandit_compound_operator_memory_coefficient: 0.04
+multi_armed_bandit_compound_operator_exploration_coefficient: 1000000000000
+relocate_expensive_chain_num_arcs_to_consider: 4
+heuristic_expensive_chain_lns_num_arcs_to_consider: 4
+heuristic_close_nodes_lns_num_nodes: 5
+local_search_metaheuristic: AUTOMATIC
+guided_local_search_lambda_coefficient: 0.1
+use_cp: BOOL_TRUE
+use_cp_sat: BOOL_FALSE
+use_generalized_cp_sat: BOOL_FALSE
+sat_parameters {
+  num_search_workers: 1
+  linearization_level: 2
+}
+continuous_scheduling_solver: SCHEDULING_GLOP
+mixed_integer_scheduling_solver: SCHEDULING_CP_SAT
+disable_scheduling_beware_this_may_degrade_performance: false
+number_of_solutions_to_collect: 1
+solution_limit: 9223372036854775807
+time_limit {
+  seconds: 1200
+}
+lns_time_limit {
+  nanos: 100000000
+}
+log_cost_scaling_factor: 1
+
+Objective: 2803
+Route for vehicle 0:
+ 0 ->  65 ->  4 ->  16 ->  135 ->  6 ->  83 ->  55 ->  91 ->  124 ->  130 ->  17 ->  76 ->  136 ->  132 ->  90 ->  48 ->  94 ->  20 -> 0
+Distance of the route: 279m
+Load of the route: 188/190
+
+Route for vehicle 1:
+ 1 ->  120 ->  59 ->  11 -> 1
+Distance of the route: 58m
+Load of the route: 37/190
+
+Route for vehicle 2:
+ 2 ->  5 ->  145 ->  134 ->  12 ->  92 ->  143 ->  50 ->  63 ->  139 ->  116 ->  41 ->  47 ->  127 -> 2
+Distance of the route: 282m
+Load of the route: 169/190
+
+Route for vehicle 3:
+ 3 ->  131 ->  36 ->  96 ->  68 ->  99 ->  141 ->  109 ->  87 ->  26 ->  133 ->  102 ->  147 ->  44 ->  146 ->  95 -> 3
+Distance of the route: 306m
+Load of the route: 189/190
+
+Route for vehicle 4:
+ 0 -> 0
+Distance of the route: 0m
+Load of the route: 0/190
+
+Route for vehicle 5:
+ 1 ->  27 ->  73 ->  82 ->  22 ->  144 ->  77 ->  103 ->  75 ->  53 ->  13 ->  115 ->  15 ->  81 ->  111 ->  40 -> 1
+Distance of the route: 255m
+Load of the route: 190/190
+
+Route for vehicle 6:
+ 2 ->  45 ->  23 ->  34 ->  106 ->  117 ->  30 ->  113 ->  122 ->  72 ->  43 ->  142 ->  98 ->  74 ->  121 -> 2
+Distance of the route: 335m
+Load of the route: 186/190
+
+Route for vehicle 7:
+ 3 ->  89 ->  24 ->  69 ->  93 ->  10 ->  137 ->  80 ->  33 ->  56 ->  32 ->  85 ->  62 ->  123 ->  129 -> 3
+Distance of the route: 309m
+Load of the route: 190/190
+
+Route for vehicle 8:
+ 0 ->  29 ->  42 ->  14 ->  38 ->  31 ->  18 ->  66 ->  8 ->  110 ->  112 -> 0
+Distance of the route: 180m
+Load of the route: 141/190
+
+Route for vehicle 9:
+ 1 ->  138 ->  108 ->  104 ->  118 ->  86 ->  128 ->  37 ->  114 ->  64 ->  39 ->  60 ->  88 ->  70 ->  58 ->  101 ->  52 ->  119 ->  79 ->  57 ->  78 -> 1
+Distance of the route: 444m
+Load of the route: 173/190
+
+Route for vehicle 10:
+ 2 ->  97 ->  105 ->  51 ->  67 ->  140 ->  100 ->  35 ->  84 ->  125 -> 2
+Distance of the route: 161m
+Load of the route: 144/190
+
+Route for vehicle 11:
+ 3 ->  19 ->  21 ->  126 ->  28 ->  71 ->  9 ->  7 ->  54 ->  49 ->  61 ->  25 ->  107 ->  46 -> 3
+Distance of the route: 194m
+Load of the route: 181/190
+
+Maximum of the route distances: 444m
+Total route distance 2803
+first_solution_strategy: LOCAL_CHEAPEST_INSERTION
+savings_neighbors_ratio: 1
+savings_max_memory_usage_bytes: 6000000000
+savings_arc_coefficient: 1
+cheapest_insertion_first_solution_neighbors_ratio: 1
+cheapest_insertion_first_solution_min_neighbors: 1
+cheapest_insertion_ls_operator_neighbors_ratio: 1
+cheapest_insertion_ls_operator_min_neighbors: 1
+local_cheapest_insertion_evaluate_pickup_delivery_costs_independently: true
+local_search_operators {
+  use_relocate: BOOL_TRUE
+  use_relocate_pair: BOOL_TRUE
+  use_light_relocate_pair: BOOL_TRUE
+  use_relocate_neighbors: BOOL_FALSE
+  use_relocate_subtrip: BOOL_TRUE
+  use_exchange: BOOL_TRUE
+  use_exchange_pair: BOOL_TRUE
+  use_exchange_subtrip: BOOL_TRUE
+  use_cross: BOOL_TRUE
+  use_cross_exchange: BOOL_FALSE
+  use_relocate_expensive_chain: BOOL_TRUE
+  use_two_opt: BOOL_TRUE
+  use_or_opt: BOOL_TRUE
+  use_lin_kernighan: BOOL_TRUE
+  use_tsp_opt: BOOL_FALSE
+  use_make_active: BOOL_TRUE
+  use_relocate_and_make_active: BOOL_FALSE
+  use_make_inactive: BOOL_TRUE
+  use_make_chain_inactive: BOOL_TRUE
+  use_swap_active: BOOL_TRUE
+  use_extended_swap_active: BOOL_FALSE
+  use_node_pair_swap_active: BOOL_FALSE
+  use_path_lns: BOOL_FALSE
+  use_full_path_lns: BOOL_FALSE
+  use_tsp_lns: BOOL_FALSE
+  use_inactive_lns: BOOL_FALSE
+  use_global_cheapest_insertion_path_lns: BOOL_TRUE
+  use_local_cheapest_insertion_path_lns: BOOL_TRUE
+  use_relocate_path_global_cheapest_insertion_insert_unperformed: BOOL_TRUE
+  use_global_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_local_cheapest_insertion_expensive_chain_lns: BOOL_FALSE
+  use_global_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+  use_local_cheapest_insertion_close_nodes_lns: BOOL_FALSE
+}
+multi_armed_bandit_compound_operator_memory_coefficient: 0.04
+multi_armed_bandit_compound_operator_exploration_coefficient: 1000000000000
+relocate_expensive_chain_num_arcs_to_consider: 4
+heuristic_expensive_chain_lns_num_arcs_to_consider: 4
+heuristic_close_nodes_lns_num_nodes: 5
+local_search_metaheuristic: AUTOMATIC
+guided_local_search_lambda_coefficient: 0.1
+use_cp: BOOL_TRUE
+use_cp_sat: BOOL_FALSE
+use_generalized_cp_sat: BOOL_FALSE
+sat_parameters {
+  num_search_workers: 1
+  linearization_level: 2
+}
+continuous_scheduling_solver: SCHEDULING_GLOP
+mixed_integer_scheduling_solver: SCHEDULING_CP_SAT
+disable_scheduling_beware_this_may_degrade_performance: false
+number_of_solutions_to_collect: 1
+solution_limit: 9223372036854775807
+time_limit {
+  seconds: 1200
+}
+lns_time_limit {
+  nanos: 100000000
+}
+log_cost_scaling_factor: 1
+
+Objective: 2809
+Route for vehicle 0:
+ 0 ->  132 ->  15 ->  115 ->  144 ->  77 ->  103 ->  75 ->  53 ->  13 ->  130 ->  124 ->  43 ->  72 ->  122 ->  113 ->  135 ->  65 -> 0
+Distance of the route: 336m
+Load of the route: 188/190
+
+Route for vehicle 1:
+ 1 ->  40 ->  111 ->  81 ->  22 ->  82 ->  73 ->  108 ->  118 ->  104 ->  37 ->  114 ->  64 ->  39 ->  60 ->  88 ->  70 ->  78 -> 1
+Distance of the route: 384m
+Load of the route: 182/190
+
+Route for vehicle 2:
+ 2 ->  97 ->  100 ->  137 ->  10 ->  93 ->  33 ->  80 ->  12 ->  134 ->  139 ->  145 ->  140 ->  67 -> 2
+Distance of the route: 315m
+Load of the route: 190/190
+
+Route for vehicle 3:
+ 3 ->  109 ->  87 ->  141 ->  99 ->  69 ->  56 ->  79 ->  119 ->  52 ->  101 ->  58 ->  57 ->  123 ->  129 ->  131 ->  126 ->  21 -> 3
+Distance of the route: 342m
+Load of the route: 181/190
+
+Route for vehicle 4:
+ 0 ->  136 ->  76 ->  17 ->  91 ->  55 ->  83 ->  6 ->  142 ->  16 ->  4 ->  98 ->  74 ->  14 ->  112 ->  110 -> 0
+Distance of the route: 284m
+Load of the route: 184/190
+
+Route for vehicle 5:
+ 1 -> 1
+Distance of the route: 0m
+Load of the route: 0/190
+
+Route for vehicle 6:
+ 2 ->  133 ->  26 ->  125 ->  84 ->  35 ->  105 ->  51 ->  5 ->  143 ->  92 ->  50 ->  63 ->  116 ->  127 -> 2
+Distance of the route: 267m
+Load of the route: 184/190
+
+Route for vehicle 7:
+ 3 ->  46 ->  107 ->  66 ->  8 ->  38 ->  31 ->  44 ->  18 ->  146 ->  95 -> 3
+Distance of the route: 156m
+Load of the route: 120/190
+
+Route for vehicle 8:
+ 0 ->  90 ->  48 ->  94 ->  20 ->  29 ->  42 -> 0
+Distance of the route: 68m
+Load of the route: 94/190
+
+Route for vehicle 9:
+ 1 ->  7 ->  9 ->  71 ->  28 ->  25 ->  61 ->  49 ->  54 ->  27 ->  138 ->  86 ->  128 ->  59 ->  11 ->  120 -> 1
+Distance of the route: 217m
+Load of the route: 160/190
+
+Route for vehicle 10:
+ 2 ->  102 ->  147 ->  121 ->  34 ->  30 ->  117 ->  106 ->  23 ->  41 ->  45 ->  47 -> 2
+Distance of the route: 251m
+Load of the route: 166/190
+
+Route for vehicle 11:
+ 3 ->  89 ->  24 ->  32 ->  85 ->  62 ->  96 ->  36 ->  68 ->  19 -> 3
+Distance of the route: 189m
+Load of the route: 139/190
+
+Maximum of the route distances: 384m
+Total route distance 2809

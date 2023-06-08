@@ -31,8 +31,10 @@ def print_solution_time(data, manager, routing, solution):
     print(f'Objective: {solution.ObjectiveValue()}')
     time_dimension = routing.GetDimensionOrDie('Distance')
     total_time = 0
+    total_distance = 0
     for vehicle_id in range(data['num_vehicles']):
         route_load = 0 
+        route_distance = 0
         index = routing.Start(vehicle_id)
         plan_output = 'Route for vehicle {}:\n'.format(vehicle_id)
         while not routing.IsEnd(index):
@@ -41,19 +43,26 @@ def print_solution_time(data, manager, routing, solution):
             plan_output += '{0} Time({1},{2}) -> '.format(
                 manager.IndexToNode(index), solution.Min(time_var),
                 solution.Max(time_var))
+            prev_index = index
             index = solution.Value(routing.NextVar(index))
+            route_distance += data['distance_matrix'][manager.IndexToNode(prev_index)][manager.IndexToNode(index)]
         time_var = time_dimension.CumulVar(index)
         plan_output += '{0} Time({1},{2})\n'.format(manager.IndexToNode(index),
                                                     solution.Min(time_var),
                                                     solution.Max(time_var))
         plan_output += 'Time of the route: {}min\n'.format(
             solution.Min(time_var))
+        plan_output += 'Distance of route: {}m\n'.format(
+            route_distance)
         plan_output += 'Load of the route: {}/{}\n'.format(route_load, data['vehicle_capacities'][vehicle_id])
         print(plan_output)
         total_time += solution.Min(time_var)
-    print('Total time of all routes: {}min'.format(total_time))
+        total_distance += route_distance
 
-def solve(vrp):
+    print('Total time of all routes: {}min'.format(total_time))
+    print('Total distance of all routes: {}m'.format(total_distance))
+
+def solve(vrp, fs):
     """Simple Vehicles Routing Problem."""
     """Entry point of the program."""
     # Instantiate the data problem.
@@ -66,8 +75,6 @@ def solve(vrp):
     manager = pywrapcp.RoutingIndexManager(len(data['distance_matrix']),
                                            data['num_vehicles'], data['starts'],
                                            data['ends'])
-    print(data['num_vehicles'], data['starts'], data['ends'])
-    print(data['max_route_length'])
     # [END index_manager]
     # Create Routing Model.
     routing = pywrapcp.RoutingModel(manager)
@@ -81,7 +88,7 @@ def solve(vrp):
         from_node = manager.IndexToNode(from_index)
         to_node = manager.IndexToNode(to_index)
 
-        return data['distance_matrix'][from_node][to_node]//2 + data["service_time"][from_node]
+        return data['distance_matrix'][from_node][to_node] + data["service_time"][from_node]
 
     transit_callback_index = routing.RegisterTransitCallback(distance_callback)
     # [END transit_callback]
@@ -126,12 +133,14 @@ def solve(vrp):
                 continue
             index = manager.NodeToIndex(location_idx)
             time_dimension.CumulVar(index).SetRange(time_window[0], time_window[1])
+            routing.AddToAssignment(time_dimension.SlackVar(index))
         # Add time window constraints for each vehicle start node.
         for vehicle_id in range(data['num_vehicles']):
             index = routing.Start(vehicle_id)
             time_dimension.CumulVar(index).SetRange(
                 data['time_windows'][data['starts'][vehicle_id]][0],
                 data['time_windows'][data['starts'][vehicle_id]][1])
+            routing.AddToAssignment(time_dimension.SlackVar(index))
 
         # Instantiate route start and end times to produce feasible times.
         for i in range(data['num_vehicles']):
@@ -140,12 +149,15 @@ def solve(vrp):
             routing.AddVariableMinimizedByFinalizer(
                 time_dimension.CumulVar(routing.End(i)))
 
+        
 
     # Setting first solution heuristic.
     search_parameters = pywrapcp.DefaultRoutingSearchParameters()
     search_parameters.first_solution_strategy = (
-        routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC)
-
+        fs)
+    search_parameters.time_limit.FromSeconds(3600)
+    search_parameters.log_search = True
+    print(fs)
     routing.CloseModelWithParameters(search_parameters)
 
     collector = routing.solver().AllSolutionCollector()
@@ -169,6 +181,6 @@ def solve(vrp):
     result["cost"] = []
     for i in range(collector.SolutionCount()):
         result["time"].append(collector.WallTime(i))
-        result["cost"].append(collector.Solution(i).ObjectiveValue())
+        result["cost"].append(collector.Solution(i).ObjectiveValue() - sum(data['service_time']))
     
     return result

@@ -23,7 +23,7 @@ class VRP :
         for loc1 in self.depots + self.clients:
             line = []
             for loc2 in self.depots + self.clients:
-                line.append(round(math.sqrt((loc1.x - loc2.x)**2 + (loc1.y - loc2.y)**2)))
+                line.append(math.floor(math.sqrt((loc1.x - loc2.x)**2 + (loc1.y - loc2.y)**2)/2 + 0.5))
             matrix.append(line)
         return matrix
     
