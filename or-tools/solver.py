@@ -155,9 +155,9 @@ def solve(vrp, fs):
     search_parameters = pywrapcp.DefaultRoutingSearchParameters()
     search_parameters.first_solution_strategy = (
         fs)
-    search_parameters.time_limit.FromSeconds(1200)
-    #search_parameters.log_search = True
-    print(search_parameters)
+    search_parameters.time_limit.FromSeconds(3600)
+    search_parameters.log_search = True
+    print(fs)
     routing.CloseModelWithParameters(search_parameters)
 
     collector = routing.solver().AllSolutionCollector()

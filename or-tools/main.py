@@ -3,6 +3,7 @@ from solver import solve
 from ortools.constraint_solver import routing_enums_pb2
 import sys
 import json
+from time import sleep
 
 DATA_PATH = "../data/"
 RESULT_PATH = "results/"
@@ -47,7 +48,6 @@ SEARCH_PARAMS = {
     "most-const" : routing_enums_pb2.FirstSolutionStrategy.PATH_MOST_CONSTRAINED_ARC,
     "cheap-ins"  : routing_enums_pb2.FirstSolutionStrategy.LOCAL_CHEAPEST_INSERTION,
     "best"       : routing_enums_pb2.FirstSolutionStrategy.BEST_INSERTION,
-    "glob-cheap"      : routing_enums_pb2.FirstSolutionStrategy.GLOBAL_CHEAPEST_ARC,
     "auto"       : routing_enums_pb2.FirstSolutionStrategy.AUTOMATIC
 }
 
@@ -57,13 +57,11 @@ def main(problem, file, fs):
     result = solve(vrp, fs)
     return result
     
-
+fs = routing_enums_pb2.FirstSolutionStrategy.LOCAL_CHEAPEST_INSERTION
 
 if __name__ == "__main__":
-    for i in range(3): #Problem
+    for i in range(2,3): #Problem
         for file in FILES[i]: #FILE
-            file_data = {}
-            for fs in SEARCH_PARAMS:
-                file_data[fs] = main(i, file, SEARCH_PARAMS[fs])
-            with open(RESULT_PATH + PROBLEM_FOLDER[i] + file, "w") as outfile:
+            file_data = main(i, file, fs)
+            with open(RESULT_PATH + PROBLEM_FOLDER[i] + file + "1hour", "w") as outfile:
                 json.dump(file_data, outfile, indent=2)
