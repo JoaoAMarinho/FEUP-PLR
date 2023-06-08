@@ -40,11 +40,13 @@ get_test_combinations(Test_Combinations):-
   Value_Ordering = [up, down],
   Time_Limits = [30000, 60000, 300000, 600000, 1200000], % 30 sec, 1 min, 5 min, 10 min, 20 min
 
-  get_files('../data/mdvrp', MD_Files),
-  get_files('../data/vrptw', TW_Files),
-  get_files('../data/mdvrptw', MDTW_Files),
-  append(MD_Files, TW_Files, Files),
-  append(Files, MDTW_Files, All_Files),
+  %get_files('../data/mdvrp', MD_Files),
+  %get_files('../data/vrptw', TW_Files),
+  %get_files('../data/mdvrptw', MDTW_Files),
+  %append(MD_Files, TW_Files, Files),
+  %append(Files, MDTW_Files, All_Files),
+  All_Files = ['../data/vrptw/c100','../data/vrptw/c101','../data/vrptw/c102', '../data/vrptw/c103',
+               '../data/vrptw/c104', '../data/vrptw/c105'],
 
   findall([F, X, Y, Z, W], 
     (
@@ -83,7 +85,7 @@ test:-
   (
     foreach([File, Variable_Ordering, Value_Selection, Value_Ordering, Time_Limit], Test_Combinations) do
     solve_problem(File, Variable_Ordering, Value_Selection, Value_Ordering, Time_Limit, Solution),
-    open('./results/test_small.txt', append, File_Stream),
+    open('./results/test_vrptw.txt', append, File_Stream),
     set_output(File_Stream),
     write(File), write(':'), nl,
     print_solution(Solution),
