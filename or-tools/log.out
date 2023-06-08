@@ -1,173 +1,210 @@
-mdvrp/pr01
+3
+Objective: 500
+Route for vehicle 0:
+0 Time(0,0) -> 12 Time(80,80) -> 0 Time(96,96)
+Time of the route: 96min
+Distance of route: 18m
+Load of the route: 13/200
 
+Route for vehicle 1:
+1 Time(0,0) -> 13 Time(90,206) -> 9 Time(160,257) -> 6 Time(389,389) -> 14 Time(423,423) -> 1 Time(433,433)
+Time of the route: 433min
+Distance of route: 36m
+Load of the route: 46/200
 
-cheap-arc C: 454 T: 81
-most-const C: 474 T: 124
-cheap-ins C: 530 T: 25
-auto C: 454 T: 86
-mdvrp/pr02
+Route for vehicle 2:
+2 Time(0,0) -> 23 Time(192,236) -> 16 Time(222,266) -> 11 Time(236,321) -> 8 Time(317,419) -> 20 Time(444,444) -> 21 Time(460,460) -> 19 Time(491,491) -> 2 Time(512,512)
+Time of the route: 512min
+Distance of route: 110m
+Load of the route: 104/200
 
+Route for vehicle 3:
+3 Time(0,0) -> 3 Time(0,0)
+Time of the route: 0min
+Distance of route: 0m
+Load of the route: 0/200
 
-cheap-arc C: 693 T: 395
-most-const C: 735 T: 521
-cheap-ins C: 738 T: 314
-auto C: 693 T: 377
-mdvrp/pr03
+Route for vehicle 4:
+0 Time(0,0) -> 10 Time(170,170) -> 0 Time(180,180)
+Time of the route: 180min
+Distance of route: 8m
+Load of the route: 13/200
 
+Route for vehicle 5:
+1 Time(0,0) -> 1 Time(0,0)
+Time of the route: 0min
+Distance of route: 0m
+Load of the route: 0/200
 
-cheap-arc C: 1002 T: 1333
-most-const C: 1000 T: 873
-cheap-ins C: 1006 T: 1277
-auto C: 1002 T: 1351
-mdvrp/pr04
+Route for vehicle 6:
+2 Time(0,0) -> 7 Time(204,291) -> 22 Time(319,336) -> 17 Time(360,377) -> 4 Time(399,399) -> 2 Time(409,409)
+Time of the route: 409min
+Distance of route: 78m
+Load of the route: 29/200
 
+Route for vehicle 7:
+3 Time(0,0) -> 5 Time(121,213) -> 18 Time(226,231) -> 15 Time(271,271) -> 3 Time(295,295)
+Time of the route: 295min
+Distance of route: 45m
+Load of the route: 18/200
 
-cheap-arc C: 1114 T: 1799
-most-const C: 1203 T: 1325
-cheap-ins C: 1286 T: 2435
-auto C: 1114 T: 1759
-mdvrp/pr05
+Total time of all routes: 1925min
+Total distance of all routes: 295m
+4
+Objective: 500
+Route for vehicle 0:
+0 Time(0,0) -> 12 Time(80,80) -> 0 Time(96,96)
+Time of the route: 96min
+Distance of route: 18m
+Load of the route: 13/200
 
+Route for vehicle 1:
+1 Time(0,0) -> 13 Time(90,206) -> 9 Time(160,257) -> 6 Time(389,389) -> 14 Time(423,423) -> 1 Time(433,433)
+Time of the route: 433min
+Distance of route: 36m
+Load of the route: 46/200
 
-cheap-arc C: 1283 T: 2984
-most-const C: 1344 T: 2432
-cheap-ins C: 1536 T: 2791
-auto C: 1283 T: 2998
-mdvrp/pr06
+Route for vehicle 2:
+2 Time(0,0) -> 23 Time(192,236) -> 16 Time(222,266) -> 11 Time(236,321) -> 8 Time(317,419) -> 20 Time(444,444) -> 21 Time(460,460) -> 19 Time(491,491) -> 2 Time(512,512)
+Time of the route: 512min
+Distance of route: 110m
+Load of the route: 104/200
 
+Route for vehicle 3:
+3 Time(0,0) -> 3 Time(0,0)
+Time of the route: 0min
+Distance of route: 0m
+Load of the route: 0/200
 
-cheap-arc C: 1554 T: 3668
-most-const C: 1597 T: 2947
-cheap-ins C: 1812 T: 4519
-auto C: 1554 T: 3751
-mdvrp/pr07
+Route for vehicle 4:
+0 Time(0,0) -> 10 Time(170,170) -> 0 Time(180,180)
+Time of the route: 180min
+Distance of route: 8m
+Load of the route: 13/200
 
+Route for vehicle 5:
+1 Time(0,0) -> 1 Time(0,0)
+Time of the route: 0min
+Distance of route: 0m
+Load of the route: 0/200
 
-cheap-arc C: 556 T: 293
-most-const C: 677 T: 166
-cheap-ins C: 552 T: 123
-auto C: 556 T: 288
-mdvrp/pr08
+Route for vehicle 6:
+2 Time(0,0) -> 7 Time(204,291) -> 22 Time(319,336) -> 17 Time(360,377) -> 4 Time(399,399) -> 2 Time(409,409)
+Time of the route: 409min
+Distance of route: 78m
+Load of the route: 29/200
 
+Route for vehicle 7:
+3 Time(0,0) -> 5 Time(121,213) -> 18 Time(226,231) -> 15 Time(271,271) -> 3 Time(295,295)
+Time of the route: 295min
+Distance of route: 45m
+Load of the route: 18/200
 
-cheap-arc C: 1038 T: 1091
-most-const C: 944 T: 1053
-cheap-ins C: 940 T: 513
-auto C: 1038 T: 1083
-mdvrp/pr09
+Total time of all routes: 1925min
+Total distance of all routes: 295m
+9
+Objective: 500
+Route for vehicle 0:
+0 Time(0,0) -> 10 Time(170,170) -> 12 Time(189,189) -> 0 Time(205,205)
+Time of the route: 205min
+Distance of route: 26m
+Load of the route: 26/200
 
+Route for vehicle 1:
+1 Time(0,0) -> 13 Time(90,206) -> 9 Time(160,257) -> 6 Time(389,389) -> 14 Time(423,423) -> 1 Time(433,433)
+Time of the route: 433min
+Distance of route: 36m
+Load of the route: 46/200
 
-cheap-arc C: 1264 T: 1649
-most-const C: 1258 T: 2781
-cheap-ins C: 1358 T: 2836
-auto C: 1264 T: 1690
-mdvrp/pr10
+Route for vehicle 2:
+2 Time(0,0) -> 23 Time(192,236) -> 16 Time(222,266) -> 11 Time(236,321) -> 8 Time(317,419) -> 20 Time(444,444) -> 21 Time(460,460) -> 19 Time(491,491) -> 2 Time(512,512)
+Time of the route: 512min
+Distance of route: 110m
+Load of the route: 104/200
 
+Route for vehicle 3:
+3 Time(0,0) -> 5 Time(121,213) -> 18 Time(226,231) -> 15 Time(271,271) -> 3 Time(295,295)
+Time of the route: 295min
+Distance of route: 45m
+Load of the route: 18/200
 
-cheap-arc C: 1707 T: 4822
-most-const C: 1821 T: 4400
-cheap-ins C: 1927 T: 4197
-auto C: 1707 T: 4826
-mdvrptw/pr01
+Route for vehicle 4:
+0 Time(0,0) -> 0 Time(0,0)
+Time of the route: 0min
+Distance of route: 0m
+Load of the route: 0/200
 
+Route for vehicle 5:
+1 Time(0,0) -> 1 Time(0,0)
+Time of the route: 0min
+Distance of route: 0m
+Load of the route: 0/200
 
-cheap-arc C: 574 T: 126
-most-const C: 544 T: 140
-cheap-ins C: 550 T: 128
-auto C: 574 T: 129
-mdvrptw/pr02
+Route for vehicle 6:
+2 Time(0,0) -> 7 Time(204,291) -> 22 Time(319,336) -> 17 Time(360,377) -> 4 Time(399,399) -> 2 Time(409,409)
+Time of the route: 409min
+Distance of route: 78m
+Load of the route: 29/200
 
+Route for vehicle 7:
+3 Time(0,0) -> 3 Time(0,0)
+Time of the route: 0min
+Distance of route: 0m
+Load of the route: 0/200
 
-cheap-arc C: 989 T: 623
-most-const C: 979 T: 545
-cheap-ins C: 948 T: 487
-auto C: 989 T: 591
-mdvrptw/pr03
+Total time of all routes: 1854min
+Total distance of all routes: 295m
+7
+NO SOLUTION
+15
+Objective: 500
+Route for vehicle 0:
+0 Time(0,0) -> 12 Time(80,80) -> 0 Time(96,96)
+Time of the route: 96min
+Distance of route: 18m
+Load of the route: 13/200
 
+Route for vehicle 1:
+1 Time(0,0) -> 13 Time(90,206) -> 9 Time(160,257) -> 6 Time(389,389) -> 14 Time(423,423) -> 1 Time(433,433)
+Time of the route: 433min
+Distance of route: 36m
+Load of the route: 46/200
 
-cheap-arc C: 1296 T: 1021
-most-const C: 1468 T: 1447
-cheap-ins C: 1253 T: 718
-auto C: 1296 T: 976
-mdvrptw/pr04
+Route for vehicle 2:
+2 Time(0,0) -> 23 Time(192,236) -> 16 Time(222,266) -> 11 Time(236,321) -> 8 Time(317,419) -> 20 Time(444,444) -> 21 Time(460,460) -> 19 Time(491,491) -> 2 Time(512,512)
+Time of the route: 512min
+Distance of route: 110m
+Load of the route: 104/200
 
+Route for vehicle 3:
+3 Time(0,0) -> 3 Time(0,0)
+Time of the route: 0min
+Distance of route: 0m
+Load of the route: 0/200
 
-cheap-arc C: 1599 T: 2157
-most-const C: 1529 T: 3614
-cheap-ins C: 1472 T: 1249
-auto C: 1599 T: 2146
-mdvrptw/pr05
+Route for vehicle 4:
+0 Time(0,0) -> 10 Time(170,170) -> 0 Time(180,180)
+Time of the route: 180min
+Distance of route: 8m
+Load of the route: 13/200
 
+Route for vehicle 5:
+1 Time(0,0) -> 1 Time(0,0)
+Time of the route: 0min
+Distance of route: 0m
+Load of the route: 0/200
 
-cheap-arc C: 1810 T: 3922
-most-const C: 1689 T: 3654
-cheap-ins C: 1839 T: 3415
-auto C: 1810 T: 3932
-mdvrptw/pr06
+Route for vehicle 6:
+2 Time(0,0) -> 7 Time(204,291) -> 22 Time(319,336) -> 17 Time(360,377) -> 4 Time(399,399) -> 2 Time(409,409)
+Time of the route: 409min
+Distance of route: 78m
+Load of the route: 29/200
 
+Route for vehicle 7:
+3 Time(0,0) -> 5 Time(121,213) -> 18 Time(226,231) -> 15 Time(271,271) -> 3 Time(295,295)
+Time of the route: 295min
+Distance of route: 45m
+Load of the route: 18/200
 
-cheap-arc C: 2092 T: 6253
-most-const C: 2064 T: 4150
-cheap-ins C: 2006 T: 6407
-auto C: 2092 T: 6281
-mdvrptw/pr07
-
-
-cheap-arc C: 736 T: 290
-most-const C: 768 T: 534
-cheap-ins C: 725 T: 255
-auto C: 736 T: 284
-mdvrptw/pr08
-
-
-cheap-arc C: 1060 T: 1156
-most-const C: 1105 T: 1556
-cheap-ins C: 1166 T: 641
-auto C: 1060 T: 1155
-mdvrptw/pr09
-
-
-cheap-arc C: 1525 T: 3230
-most-const C: 1593 T: 3365
-cheap-ins C: 1680 T: 1737
-auto C: 1525 T: 3269
-mdvrptw/pr10
-
-
-cheap-arc C: 2068 T: 3513
-most-const C: 2066 T: 7131
-cheap-ins C: 2037 T: 4502
-auto C: 2068 T: 3563
-vrptw/c100
-
-
-cheap-ins C: 190 T: 24
-vrptw/c101
-
-
-vrptw/c102
-
-
-vrptw/c103
-
-
-cheap-ins C: 532 T: 371
-vrptw/c104
-
-
-cheap-ins C: 541 T: 409
-vrptw/c105
-
-
-vrptw/c106
-
-
-vrptw/c107
-
-
-vrptw/c108
-
-
-vrptw/c109
-
-
+Total time of all routes: 1925min
+Total distance of all routes: 295m
