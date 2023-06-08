@@ -17,6 +17,7 @@ FILES = [[
     "pr09",
     "pr10"
 ], [
+    "pr00",
     "pr01",
     "pr02",
     "pr03",
@@ -26,7 +27,6 @@ FILES = [[
     "pr07",
     "pr08",
     "pr09",
-    "pr10",
 ], [
     "c100",
     "c101",
@@ -53,6 +53,7 @@ BEST = [[
     "cheap-arc"
 ], [
     "most-const",
+    "most-const",
     "cheap-ins",
     "cheap-ins",
     "cheap-ins",
@@ -60,8 +61,7 @@ BEST = [[
     "cheap-ins",
     "cheap-ins",
     "auto",
-    "cheap-arc",
-    "cheap-ins",
+    "cheap-arc"
 ], [
     "cheap-ins",
     "cheap-ins",
