@@ -1,4 +1,3 @@
-
 /*
 * Order routes by depot and order routes inside each depot:
 * depot_constraints(+Routes, +Materialized_Routes, +N_Vehicles, +N_Depots, +Depot)
