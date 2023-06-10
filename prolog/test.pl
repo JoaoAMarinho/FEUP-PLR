@@ -58,6 +58,10 @@ get_test_combinations(Test_Combinations):-
     ), Test_Combinations).
 
 
+/*
+* Print the solution if the Flag is not time_out:
+* print_solution(+Solution)
+*/
 print_solution([_, _, time_out]):-
   write('Flag: '), write(time_out), nl,
   print_labeling_time.
@@ -67,12 +71,21 @@ print_solution([Routes, Total_Time, Flag]):-
   write('Routes: '), write(Routes), nl,
   write('Total Time: '), write(Total_Time), nl.
 
+
+/*
+* Print the labeling time:
+* print_labeling_time/0
+*/
 print_labeling_time:-
   statistics(total_runtime,[_,T]),
   TS is ((T//10)*10)/1000, nl,
   write('Labeling Time: '), write(TS), write('s'), nl.
 
 
+/*
+* Print the solver configurations:
+* print_configuration(+Variable_Ordering, +Value_Selection, +Value_Ordering, +Time_Limit)
+*/
 print_configuration(Variable_Ordering, Value_Selection, Value_Ordering, Time_Limit):-
   write('Variable Ordering: '), write(Variable_Ordering), nl,
   write('Value Selection: '), write(Value_Selection), nl,
@@ -80,6 +93,10 @@ print_configuration(Variable_Ordering, Value_Selection, Value_Ordering, Time_Lim
   write('Time Limit: '), write(Time_Limit), nl, nl.
 
 
+/*
+* Obtain results for a set of combinatorial parameters over some dataset:
+* test/0
+*/
 test:-
   get_test_combinations(Test_Combinations),
   (
@@ -95,6 +112,10 @@ test:-
   ).
 
 
+/*
+* Obtain results for the test default dataset with default parameters:
+* test_default/0
+*/
 test_default:-
   get_files('../data/test', Files),
   %Files = ['../data/test/c000'],
