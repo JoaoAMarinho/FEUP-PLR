@@ -14,6 +14,18 @@ The `docs` folder contains the two presentations made for the course.
 ## Usage
 
 ### Or-Tools
+#### How to run
+```
+cd or-tools
+python main.py
+```
+
+#### Plots and tables
+```
+cd or-tools
+python plot.py
+python table.py
+```
 
 ### Prolog
 
