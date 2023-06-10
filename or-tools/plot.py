@@ -78,15 +78,13 @@ BEST = [[
 SEARCH_PARAMS = [
     "cheap-arc",   
     "most-const",
-    "cheap-ins", 
-    "best" ,  
+    "cheap-ins",
     "auto"
 ]
 
 if __name__ == "__main__":
     for i in range(3): #Problem
         for file in FILES[i]: #FILE
-            file_best = {}
             with open(RESULT_PATH + PROBLEM_FOLDER[i] + file, "r") as outfile:
                 file_data = json.load(outfile)
             for param in SEARCH_PARAMS:
