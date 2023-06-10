@@ -60,10 +60,10 @@ def main(problem, file, fs):
 fs = routing_enums_pb2.FirstSolutionStrategy.LOCAL_CHEAPEST_INSERTION
 
 if __name__ == "__main__":
-    i = 1
-    file = "pr00"
-    file_data = {}
-    for s in SEARCH_PARAMS:
-        file_data[s] = main(i, file, SEARCH_PARAMS[s])
-        with open(RESULT_PATH + PROBLEM_FOLDER[i] + file, "w") as outfile:
-            json.dump(file_data, outfile, indent=2)
+    for i in range(3):
+        for file in FILES[i]:
+            file_data = {}
+            for s in SEARCH_PARAMS:
+                file_data[s] = main(i, file, SEARCH_PARAMS[s])
+            with open(RESULT_PATH + PROBLEM_FOLDER[i] + file, "w") as outfile:
+                json.dump(file_data, outfile, indent=2)
