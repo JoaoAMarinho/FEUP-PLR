@@ -14,15 +14,15 @@ The `docs` folder contains the two presentations made for the course.
 ## Usage
 
 ### Or-Tools
-#### How to run
-```
-cd or-tools
+
+For the Or-Tools approach, the following steps should be followed to solve the dataset problems:
+1. Run the *main.py* file, inside the *or-tools* directory:
+```bash
 python main.py
 ```
 
-#### Plots and tables
-```
-cd or-tools
+2. By running the *plot.py* and *table.py* files we obtain a graphical visualization of the results achieved:
+```bash
 python plot.py
 python table.py
 ```
